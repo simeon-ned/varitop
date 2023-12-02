@@ -1,0 +1,31 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    // "image": "robotlev/mcp:latest",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    },
+    "runArgs": [
+        "--net",
+        "host",
+        "-e",
+        "PYOPENGL_PLATFORM=osmesa",
+        "-e",
+        "MUJOCO_GL=osmesa",
+        "-e",
+        "LOCAL_USER_ID=$(id -u)",
+        "-e",
+        "DISPLAY=${env:DISPLAY}",
+        "-e",
+        "QT_X11_NO_MITSHM=1",
+        "-v",
+        "/tmp/.X11-unix:/tmp/.X11-unix"
+    ],
+}

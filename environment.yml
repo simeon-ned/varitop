@@ -1,0 +1,19 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ipykernel
+  - libgfortran5
+  - matplotlib
+  - mesalib
+  - scipy
+  - pip:
+      - darli
+      - robot_descriptions
+      - mujoco
+      - mediapy
+      - cvxpy 
+      - cvxpygen
+      - yourdfpy
