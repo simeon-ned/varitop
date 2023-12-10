@@ -13,7 +13,6 @@ class VaritopProblem:
         self.quadrature: Callable = None
         self.lagrangian: cs.Function = None
         self.nodes: int = 0
-        self.dt: float = 1e-3
 
     def set_nodes(self, nodes: int):
         """Set number of nodes"""
@@ -66,6 +65,31 @@ class VaritopProblem:
 
         q1 = cs.SX.sym("q1", dim)
         q2 = cs.SX.sym("q2", dim)
+        dt = cs.SX.sym("dt")
 
-        q, dq = self.quadrature(q1, q2, self.dt)
-        return cs.Function("L", [q1, q2], [self.lagrangian(q, dq)])
+        q, dq = self.quadrature(q1, q2, dt)
+        return cs.Function("L", [q1, q2, dt], [self.lagrangian(q, dq)])
+
+    def get_del_residual(self) -> cs.Function:
+        """Discrete Euler-Lagrange residual"""
+        discrete_lagrangian = self.get_discrete_lagrangian()
+
+        q1 = cs.SX.sym("q1", self.variables[State].shape[0])
+        q2 = cs.SX.sym("q2", self.variables[State].shape[0])
+        q3 = cs.SX.sym("q3", self.variables[State].shape[0])
+        dt = cs.SX.sym("dt")
+
+        D1L = cs.Function(
+            "D1L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q1)]
+        )
+        D2L = cs.Function(
+            "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
+        )
+
+        return cs.Function(
+            "DEL",
+            [q1, q2, q3, dt],
+            [D1L(q1, q2, dt).T + D2L(q2, q3, dt).T],
+            ["q-1", "q", "q+1", "dt"],
+            ["DEL_residual"],
+        )
