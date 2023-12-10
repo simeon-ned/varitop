@@ -45,7 +45,7 @@ class VaritopProblem:
         self.quadrature = quadrature
 
     def set_continuous_lagrangian(self, lagrangian: cs.Function):
-        """Set the dynamics"""
+        """Set the continuous lagrangian"""
         self.lagrangian = lagrangian
 
     def get_discrete_lagrangian(self) -> [cs.Function, cs.Function]:
