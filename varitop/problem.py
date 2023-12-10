@@ -13,6 +13,7 @@ class VaritopProblem:
         self.quadrature: Callable = None
         self.lagrangian: cs.Function = None
         self.nodes: int = 0
+        self.eq_constraints: list[cs.Function] = []
 
     def set_nodes(self, nodes: int):
         """Set number of nodes"""
@@ -57,11 +58,7 @@ class VaritopProblem:
             raise RuntimeError("Continuous Lagrangian not set.")
 
         # Fix the dimensions
-        try:
-            # Get the first item in the dictionary
-            dim = self.variables[State].shape[0]
-        except Exception as e:
-            raise RuntimeError("Could not derive the state dimension. " + str(e)) from e
+        dim = self.variables[State].shape[0]
 
         q1 = cs.SX.sym("q1", dim)
         q2 = cs.SX.sym("q2", dim)
@@ -70,8 +67,19 @@ class VaritopProblem:
         q, dq = self.quadrature(q1, q2, dt)
         return cs.Function("L", [q1, q2, dt], [self.lagrangian(q, dq)])
 
+    def add_constraint(self, constr_type: str, constraint: cs.Function):
+        """Add a constraint"""
+        if constr_type == "=":
+            self.eq_constraints.append(constraint)
+        else:
+            raise NotImplementedError()
+
     def get_del_residual(self) -> cs.Function:
-        """Discrete Euler-Lagrange residual"""
+        """Discrete Euler-Lagrange residual
+        D1L + D2L + lambda * phi * dt = 0
+        I am hoping that having lambdas as
+        free variables will allow solution
+        with respect to them and next step"""
         discrete_lagrangian = self.get_discrete_lagrangian()
 
         q1 = cs.SX.sym("q1", self.variables[State].shape[0])
@@ -79,17 +87,42 @@ class VaritopProblem:
         q3 = cs.SX.sym("q3", self.variables[State].shape[0])
         dt = cs.SX.sym("dt")
 
+        # First slot derivative
         D1L = cs.Function(
             "D1L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q1)]
         )
+        # Second slot derivative
         D2L = cs.Function(
             "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
         )
-
-        return cs.Function(
+        # Discrete Euler-Lagrange residual
+        DEL = cs.Function(
             "DEL",
             [q1, q2, q3, dt],
             [D1L(q1, q2, dt).T + D2L(q2, q3, dt).T],
             ["q-1", "q", "q+1", "dt"],
             ["DEL_residual"],
         )
+
+        # Create the Lagrange multipliers
+        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
+
+        # For each of the constraints, create a residual
+        for index, constraint in enumerate(self.eq_constraints):
+            q = cs.SX.sym("q", self.variables[State].shape[0])
+            residual = cs.Function(
+                f"eq_res_{index}", [q], [cs.jacobian(constraint(q), q).T]
+            )
+
+            # Allow free is required to make it possible
+            # for lambda to be a free from argumenting
+            DEL = cs.Function(
+                "DEL",
+                [q1, q2, q3, dt],
+                [DEL(q1, q2, q3, dt) + eq_lambdas[index] * residual(q2) * dt],
+                ["q-1", "q", "q+1", "dt"],
+                ["DEL_residual"],
+                {"allow_free": True},
+            )
+
+        return DEL
