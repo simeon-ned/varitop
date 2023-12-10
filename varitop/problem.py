@@ -25,8 +25,8 @@ class VaritopProblem:
         """Create a variable"""
         if active is None:
             active = np.ones(self.nodes, dtype=int)
-        self.variables[name] = variable(name, dim, active)
-        return self.variables[name]
+        self.variables[variable] = variable(name, dim, active)
+        return self.variables[variable]
 
     def create_state(self, name: str, dim: int, active: list[int] = None) -> Variable:
         """Create a state variable"""
@@ -60,8 +60,7 @@ class VaritopProblem:
         # Fix the dimensions
         try:
             # Get the first item in the dictionary
-            first_key = next(iter(self.variables))
-            dim = self.variables[first_key].shape[0]
+            dim = self.variables[State].shape[0]
         except Exception as e:
             raise RuntimeError("Could not derive the state dimension. " + str(e)) from e
 
