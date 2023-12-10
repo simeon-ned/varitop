@@ -109,9 +109,8 @@ class VaritopProblem:
 
         # For each of the constraints, create a residual
         for index, constraint in enumerate(self.eq_constraints):
-            q = cs.SX.sym("q", self.variables[State].shape[0])
             residual = cs.Function(
-                f"eq_res_{index}", [q], [cs.jacobian(constraint(q), q).T]
+                f"eq_res_{index}", [q2], [cs.jacobian(constraint(q2), q2).T]
             )
 
             # Allow free is required to make it possible
