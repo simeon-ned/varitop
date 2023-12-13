@@ -100,7 +100,7 @@ class VaritopProblem:
         del_residual = d1l(q2, q3, dt).T + d2l(q1, q2, dt).T
 
         for i, phi in enumerate(self.eq_constraints):
-            del_residual += cs.jacobian(phi(q3), q3).T * eq_lambdas[i]
+            del_residual += cs.jacobian(phi(q2), q2).T * eq_lambdas[i] * dt
 
         variable = cs.vertcat(q3, eq_lambdas)
         eq_constraints = cs.vcat([constr(q3) for constr in self.eq_constraints])
@@ -115,3 +115,39 @@ class VaritopProblem:
             ["DEL_residual"],
         )
         return del_residual
+
+    def get_delm_residual(self) -> [cs.Function, cs.Function]:
+        discrete_lagrangian = self.get_discrete_lagrangian()
+
+        q1 = cs.SX.sym("q1", self.variables[State].shape[0])
+        q2 = cs.SX.sym("q2", self.variables[State].shape[0])
+        p = cs.SX.sym("p", self.variables[Momentum].shape[0])
+        dt = cs.SX.sym("dt")
+        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
+
+        # First slot derivative
+        d1l = cs.Function(
+            "D1L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q1)]
+        )
+        # Second slot derivative
+        d2l = cs.Function(
+            "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
+        )
+
+        p_residual = p + d1l(q1, q2, dt).T
+        for i, phi in enumerate(self.eq_constraints):
+            p_residual += cs.jacobian(phi(q1), q1).T * eq_lambdas[i] * dt
+
+        variable = cs.vertcat(q2, eq_lambdas)
+        eq_constraints = cs.vcat([constr(q2) for constr in self.eq_constraints])
+        p_residual = cs.vertcat(p_residual, eq_constraints)
+
+        p_residual = cs.Function(
+            "P_residual",
+            [variable, p, q1, dt],
+            [p_residual],
+            ["[q+1, lambdas]", "p", "q", "dt"],
+            ["P_residual"],
+        )
+
+        return p_residual, d2l
