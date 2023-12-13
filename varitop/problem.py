@@ -65,7 +65,7 @@ class VaritopProblem:
         dt = cs.SX.sym("dt")
 
         q, dq = self.quadrature(q1, q2, dt)
-        return cs.Function("L", [q1, q2, dt], [self.lagrangian(q, dq)])
+        return cs.Function("L", [q1, q2, dt], [self.lagrangian(q, dq) * dt])
 
     def add_constraint(self, constr_type: str, constraint: cs.Function):
         """Add a constraint"""
@@ -86,42 +86,32 @@ class VaritopProblem:
         q2 = cs.SX.sym("q2", self.variables[State].shape[0])
         q3 = cs.SX.sym("q3", self.variables[State].shape[0])
         dt = cs.SX.sym("dt")
+        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
 
         # First slot derivative
-        D1L = cs.Function(
+        d1l = cs.Function(
             "D1L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q1)]
         )
         # Second slot derivative
-        D2L = cs.Function(
+        d2l = cs.Function(
             "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
         )
+
+        del_residual = d1l(q2, q3, dt).T + d2l(q1, q2, dt).T
+
+        for i, phi in enumerate(self.eq_constraints):
+            del_residual += cs.jacobian(phi(q3), q3).T * eq_lambdas[i]
+
+        variable = cs.vertcat(q3, eq_lambdas)
+        eq_constraints = cs.vcat([constr(q3) for constr in self.eq_constraints])
+        del_residual = cs.vertcat(del_residual, eq_constraints)
+
         # Discrete Euler-Lagrange residual
-        DEL = cs.Function(
+        del_residual = cs.Function(
             "DEL",
-            [q1, q2, q3, dt],
-            [D1L(q1, q2, dt).T + D2L(q2, q3, dt).T],
+            [variable, q2, q1, dt],
+            [del_residual],
             ["q-1", "q", "q+1", "dt"],
             ["DEL_residual"],
         )
-
-        # Create the Lagrange multipliers
-        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
-
-        # For each of the constraints, create a residual
-        for index, constraint in enumerate(self.eq_constraints):
-            residual = cs.Function(
-                f"eq_res_{index}", [q2], [cs.jacobian(constraint(q2), q2).T]
-            )
-
-            # Allow free is required to make it possible
-            # for lambda to be a free from argumenting
-            DEL = cs.Function(
-                "DEL",
-                [q1, q2, q3, dt],
-                [DEL(q1, q2, q3, dt) + eq_lambdas[index] * residual(q2) * dt],
-                ["q-1", "q", "q+1", "dt"],
-                ["DEL_residual"],
-                {"allow_free": True},
-            )
-
-        return DEL
+        return del_residual
