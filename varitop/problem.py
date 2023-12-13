@@ -13,7 +13,7 @@ class VaritopProblem:
         self.quadrature: Callable = None
         self.lagrangian: cs.Function = None
         self.nodes: int = 0
-        self.eq_constraints: list[cs.Function] = []
+        self.eq_constraint: cs.Function = None
 
     def set_nodes(self, nodes: int):
         """Set number of nodes"""
@@ -67,10 +67,22 @@ class VaritopProblem:
         q, dq = self.quadrature(q1, q2, dt)
         return cs.Function("L", [q1, q2, dt], [self.lagrangian(q, dq) * dt])
 
-    def add_constraint(self, constr_type: str, constraint: cs.Function):
+    def _merge_eq_contraints(self, constraints: list[cs.Function]) -> cs.Function:
+        q = cs.SX.sym("q", self.variables[State].shape[0])
+        return cs.Function(
+            "phi", [q], [cs.vcat(list(map(lambda c: c(q), constraints)))]
+        )
+
+    def add_constraints(self, constr_type: str, constraints: list[cs.Function]):
         """Add a constraint"""
         if constr_type == "=":
-            self.eq_constraints.append(constraint)
+            merged = self._merge_eq_contraints(constraints)
+            if self.eq_constraint is None:
+                self.eq_constraint = merged
+            else:
+                self.eq_constraint = self._merge_eq_contraints(
+                    [self.eq_constraint, merged]
+                )
         else:
             raise NotImplementedError()
 
@@ -90,7 +102,7 @@ class VaritopProblem:
         dt = cs.SX.sym("dt")
 
         # Lagrange multipliers
-        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
+        eq_lambdas = cs.SX.sym("eq_lambda", self.eq_constraint.nnz_out())
 
         # First slot derivative
         d1l = cs.Function(
@@ -101,18 +113,17 @@ class VaritopProblem:
             "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
         )
         # Initial residual
-        del_residual = d1l(q2, q3, dt).T + d2l(q1, q2, dt).T
 
-        # Add the forces of constraints
-        for i, phi in enumerate(self.eq_constraints):
-            del_residual += cs.jacobian(phi(q2), q2).T * eq_lambdas[i] * dt
+        # lambda @ phi(q2) * dt
+        ljcdt = eq_lambdas.T @ cs.jacobian(self.eq_constraint(q2), q2) * dt
+        # D1L(q1, q2) + D2L(q1, q2) + lambda @ phi(q2) * dt
+        del_residual = d1l(q2, q3, dt).T + d2l(q1, q2, dt).T + ljcdt.T
+        # system of equations include constraints
+        # on the next state of the system q3
+        del_residual = cs.vcat([del_residual, self.eq_constraint(q3)])
 
         # variable is the vector of unknowns
         variable = cs.vertcat(q3, eq_lambdas)
-
-        eq_constraints = cs.vcat([constr(q3) for constr in self.eq_constraints])
-        del_residual = cs.vertcat(del_residual, eq_constraints)
-
         # Discrete Euler-Lagrange residual
         del_residual = cs.Function(
             "DEL",
@@ -138,7 +149,7 @@ class VaritopProblem:
         dt = cs.SX.sym("dt")
 
         # Lagrange multipliers
-        eq_lambdas = cs.SX.sym("eq_lambda", len(self.eq_constraints))
+        eq_lambdas = cs.SX.sym("eq_lambda", self.eq_constraint.nnz_out())
 
         # First slot derivative
         d1l = cs.Function(
@@ -149,18 +160,16 @@ class VaritopProblem:
             "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
         )
 
-        # initial residual
-        p_residual = p + d1l(q1, q2, dt).T
+        # lambda @ phi(q2) * dt
+        ljcdt = eq_lambdas.T @ cs.jacobian(self.eq_constraint(q1), q1) * dt
 
-        # Add the forces of constraints
-        for i, phi in enumerate(self.eq_constraints):
-            p_residual += cs.jacobian(phi(q1), q1).T * eq_lambdas[i] * dt
+        # initial residual
+        p_residual = p + d1l(q1, q2, dt).T + ljcdt.T
 
         # variable is the vector of unknowns
         variable = cs.vertcat(q2, eq_lambdas)
 
-        eq_constraints = cs.vcat([constr(q2) for constr in self.eq_constraints])
-        p_residual = cs.vertcat(p_residual, eq_constraints)
+        p_residual = cs.vertcat(p_residual, self.eq_constraint(q2))
 
         p_residual = cs.Function(
             "P_residual",
