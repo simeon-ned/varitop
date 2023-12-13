@@ -13,7 +13,7 @@ class DelIntegrator:
         self._dt: float = None
 
         self.history: Dict = {}
-        self.metrics: [cs.Function] = []
+        self.metrics: list[cs.Function] = []
 
     def set_del(self, del_: cs.Function):
         self._del = del_
