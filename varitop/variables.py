@@ -11,11 +11,15 @@ class Variable:
         self._active: list[int] = active
         self._nodes: int = len(active)
 
-        self._var_prj = cs.SX.sym(name, dim, self._nodes)
+        self._var_prj = cs.SX.sym(name, self._nodes, dim)
 
     @property
     def shape(self):
         return [self._dim, 1]
+
+    @property
+    def vars(self):
+        return self._var_prj
 
     @property
     def var(self):
@@ -24,7 +28,7 @@ class Variable:
             return self[0]
 
     def __getitem__(self, key):
-        return self._var_prj[:, key]
+        return self._var_prj[key, :].T
 
 
 class Momentum(Variable):
