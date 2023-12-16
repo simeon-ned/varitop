@@ -4,6 +4,8 @@ from typing import Dict
 import casadi as cs
 import numpy as np
 
+# TODO: unify the interface for integrator, merge p_res and p_next via vcat
+
 
 class Integrator:
     """Abstract integrator class

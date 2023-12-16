@@ -2,6 +2,7 @@
 from typing import Dict, Callable
 import numpy as np
 import casadi as cs
+from typing import List
 from .variables import Variable, Momentum, State, Velocity
 
 
@@ -73,6 +74,7 @@ class VaritopProblem:
             "phi", [q], [cs.vcat(list(map(lambda c: c(q), constraints)))]
         )
 
+    # TODO: prob add active nodes for constr?
     def add_constraints(self, constr_type: str, constraints: list[cs.Function]):
         """Add a constraint"""
         if constr_type == "=":
@@ -85,6 +87,44 @@ class VaritopProblem:
                 )
         else:
             raise NotImplementedError()
+
+    def get_composite_del_residual(
+        self, gamma: List[cs.SX] = None, dt=1.0
+    ) -> cs.Function:
+        """West thesis - Composition Methods - 3.5.2"""
+        if self.variables.get(State) is None:
+            raise RuntimeError("State variable not created. Use create_state()")
+
+        out_dim = self.eq_constraint.nnz_out()
+
+        # Variable step size
+        if gamma is None:
+            gamma = np.full(self.nodes, dt / self.nodes)
+
+        dl = self.get_discrete_lagrangian()
+        qs = self.variables[State]
+        eq_lambdas = cs.SX.sym("eq_lambda", (self.nodes - 2, out_dim))
+
+        # composite lagrangian
+        ldn: cs.SX = 0
+        for i in range(1, self.nodes):
+            ldn += dl(qs[i - 1], qs[i], gamma[i])
+
+        for i in range(2, self.nodes):
+            ldn += eq_lambdas[i - 2, :] @ self.eq_constraint(qs[i]) * gamma[i]
+
+        dil = [cs.jacobian(ldn, qs[i]) for i in range(1, self.nodes - 1)]
+        dil.extend([self.eq_constraint(qs[i]).T for i in range(2, self.nodes)])
+
+        nlp = cs.Function(
+            "composition",
+            [qs.vars, eq_lambdas],
+            [cs.hcat(dil)],
+            ["q", "lambda"],
+            ["residual"],
+        )
+
+        return nlp
 
     def get_del_residual(self) -> cs.Function:
         """Discrete Euler-Lagrange solution
@@ -112,7 +152,6 @@ class VaritopProblem:
         d2l = cs.Function(
             "D2L", [q1, q2, dt], [cs.jacobian(discrete_lagrangian(q1, q2, dt), q2)]
         )
-        # Initial residual
 
         # lambda @ phi(q2) * dt
         ljcdt = eq_lambdas.T @ cs.jacobian(self.eq_constraint(q2), q2) * dt
