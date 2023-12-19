@@ -3,7 +3,7 @@ from typing import Dict, Callable
 import numpy as np
 import casadi as cs
 from typing import List
-from .variables import Variable, Momentum, State, Velocity
+from .variables import Variable, Momentum, State, Velocity, Control
 
 
 class VaritopProblem:
@@ -40,6 +40,10 @@ class VaritopProblem:
     def create_momentum(self, name: str, active: list[int] = None) -> Variable:
         """Create a momentum variable"""
         return self.create_variable(Momentum, name, active)
+
+    def create_control(self, name: str, active: list[int] = None) -> Variable:
+        """Create a control variable"""
+        return self.create_variable(Control, name, active)
 
     def set_quadrature(self, quadrature: Callable):
         """Set the quadrature rule"""
@@ -103,6 +107,9 @@ class VaritopProblem:
 
         dl = self.get_discrete_lagrangian()
         qs = self.variables[State]
+        us = self.variables[Control]
+        # temp B
+        B = cs.SX([1, 0, 0, 0])
         eq_lambdas = cs.SX.sym("eq_lambda", (self.nodes - 2, out_dim))
 
         # composite lagrangian
@@ -113,14 +120,17 @@ class VaritopProblem:
         for i in range(2, self.nodes):
             ldn += eq_lambdas[i - 2, :] @ self.eq_constraint(qs[i]) * gamma[i]
 
-        dil = [cs.jacobian(ldn, qs[i]) for i in range(1, self.nodes - 1)]
+        dil = [
+            cs.jacobian(ldn, qs[i]) + (B @ us[i]).T * gamma[i]
+            for i in range(1, self.nodes - 1)
+        ]
         dil.extend([self.eq_constraint(qs[i]).T for i in range(2, self.nodes)])
 
         nlp = cs.Function(
             "composition",
-            [qs.vars, eq_lambdas],
+            [qs.vars, us.vars, eq_lambdas],
             [cs.hcat(dil)],
-            ["q", "lambda"],
+            ["q", "u", "lambda"],
             ["residual"],
         )
 
