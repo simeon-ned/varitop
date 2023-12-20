@@ -1,176 +1,165 @@
-"""This module contains variational integrators"""
+"""Integrators modules"""
 
-from typing import Dict
+from typing import List
 import casadi as cs
-import numpy as np
-
-# TODO: unify the interface for integrator, merge p_res and p_next via vcat
 
 
-class Integrator:
-    """Abstract integrator class
-    Contains the basic initialization"""
+class VariationalIntegrator:
+    """Abstract variational integrator class"""
 
-    def __init__(self):
-        self._q_0: cs.SX = None
+    def __init__(self) -> None:
+        self._lagrangian: cs.Function = None
+        self._rule: cs.Function = None
+        self._nq: int = None
+        self._constrained: bool = False
+        self._dynamics_constraint: cs.Function = None
 
-        self._time: [float, float] = None
-        self._steps: int = None
-        self._dt: float = None
+    @property
+    def lagrangian(self):
+        """Getter for continuous lagrangian"""
+        return self._lagrangian
 
-        self.history: Dict = {}
-        self.metrics: list[cs.Function] = []
+    @lagrangian.setter
+    def lagrangian(self, lagrangian: cs.Function):
+        """Setter for continuous lagrangian"""
+        self._lagrangian = lagrangian
 
-    def set_time(self, span: [float, float], steps: int):
-        """Set the time span and number of steps"""
-        self._time = span
-        self._steps = steps
-        self._dt = (span[1] - span[0]) / steps
+    @property
+    def rule(self):
+        """Getter for approximation rule"""
+        return self._rule
 
-    def set_initial(self, initial: cs.SX):
-        """Set the initial state"""
-        self._q_0 = initial
+    @rule.setter
+    def rule(self, rule: cs.Function):
+        """Setter for approximation rule"""
+        self._rule = rule
 
-    def add_metric(self, metrics: [cs.Function]):
-        """Add a metric to the integrator"""
-        self.metrics.extend(metrics)
+    @property
+    def nq(self):
+        """Getter for number of generalized coordinates"""
+        return self._nq
 
-    def solve(self, backend="newton"):
-        """Solve the problem"""
+    @nq.setter
+    def nq(self, nq: int):
+        """Setter for number of generalized coordinates"""
+        self._nq = nq
+
+    def _discrete_lagrangian(self) -> cs.Function:
+        """Discretize the Lagrangian
+        Ld(q1, q2, dt) = L(q, dq) * dt"""
+
+        if self.nq is None:
+            raise RuntimeError("Number of generalized coordinates not set.")
+
+        q0 = cs.SX.sym("q0", self.nq)
+        q1 = cs.SX.sym("q1", self.nq)
+        dt = cs.SX.sym("dt")
+
+        q, dq = self._rule(q0, q1, dt)
+
+        l = self._lagrangian(q, dq)
+
+        variables = [q0, q1, dt]
+
+        # Construct augmented Lagrangian
+        if self._constrained:
+            phi = self._dynamics_constraint
+            phi_dim = phi.nnz_out()
+            lambdas = cs.SX.sym("lambda", phi_dim)
+
+            l += lambdas.T @ phi(q1)
+
+            variables = [q0, q1, lambdas, dt]
+
+        ld = cs.Function("Ld", variables, [l * dt])
+        return ld
+
+    def step(self):
+        """Get a system for a next step of integration"""
         raise NotImplementedError
 
+    def _append_dynamics_constraint(self, constr: cs.Function):
+        """Compose a dynamics constraint function
+        phi(q) = residual [number of constraints x 1]"""
+        if self._dynamics_constraint is None:
+            self._dynamics_constraint = constr
+        else:
+            q = cs.SX.sym("q", self.nq)
+            self._dynamics_constraint = cs.Function(
+                "phi",
+                [q],
+                [cs.vcat([self._dynamics_constraint(q), constr(q)])],
+                ["q"],
+                ["phi"],
+            )
 
-class DelIntegrator(Integrator):
+    def add_dynamics_constraint(self, constraints: List[cs.Function]):
+        """Add a constraint on dynamics of the system"""
+        self._constrained = True
+        for constr in constraints:
+            self._append_dynamics_constraint(constr)
+
+
+class DelIntegrator(VariationalIntegrator):
     """Discrete Euler-Lagrange integrator"""
 
-    def __init__(self):
-        super().__init__()
-        self._del: cs.Function = None
+    def step(self):
+        """(q0, q1) -> (q1, q2)"""
 
-    def set_del(self, del_: cs.Function):
-        """Specify the DEL residual"""
-        self._del = del_
+        if self.lagrangian is None:
+            raise RuntimeError("Continuous Lagrangian not set.")
 
-    def solve(self, backend="newton"):
-        """Solve the DEL residual"""
-        # derive number of lagrange multipliers
-        # probably nnz_out not the best way
-        # TODO: check if nnz_out() is ok
-        lagrange_mult_dim = self._del.nnz_out() - self._q_0.shape[0]
+        if self.rule is None:
+            raise RuntimeError("Approximation rule not set.")
 
-        # initialize the history
-        self.history = {}
-        self.history["state"] = [self._q_0, self._q_0]
-        self.history["multipliers"] = [
-            np.zeros(lagrange_mult_dim),
-            np.zeros(lagrange_mult_dim),
-        ]
-        # include required metrics
-        for metric in self.metrics:
-            q1 = self.history["state"][-2]
-            q2 = self.history["state"][-1]
-            dq1 = np.zeros_like(q1)
-            dq2 = (q2 - q1) / self._dt
-            self.history[metric.name()] = [
-                metric(q1, dq1),
-                metric(q2, dq2),
-            ]
+        if self.nq is None:
+            raise RuntimeError("Number of generalized coordinates not set.")
 
-        # define the rootfinder problem
-        rf = cs.rootfinder("rf", backend, self._del)
+        q0 = cs.SX.sym("q0", self.nq)
+        q1 = cs.SX.sym("q1", self.nq)
+        q2 = cs.SX.sym("q2", self.nq)
+        dt = cs.SX.sym("dt")
 
-        for _ in range(2, self._steps):
-            q1 = self.history["state"][-2]
-            q2 = self.history["state"][-1]
+        # Variables and arguments
+        # for the DEL residual
+        variables = [q0, q1, q2, dt]
+        titles = ["q-1", "q", "q+1", "dt"]
 
-            # solve the residual and obtain
-            # the next state of the system
-            # and the lagrange multipliers
-            sol = np.array(rf([*q2, *np.zeros(lagrange_mult_dim)], q2, q1, self._dt))
-            q3 = sol[: self._q_0.shape[0]].ravel()
-            mult = sol[self._q_0.shape[0] :].ravel()
+        arguments1 = [q1, q2, dt]
+        arguments2 = [q0, q1, dt]
 
-            # update the history
-            self.history["state"].append(q3)
-            self.history["multipliers"].append(mult)
+        if self._constrained:
+            phi = self._dynamics_constraint
+            lambdas = cs.SX.sym("lambda", phi.nnz_out())
 
-            # update the metrics
-            for metric in self.metrics:
-                dq = (q3 - q2) / self._dt
-                self.history[metric.name()].append(metric(q3, dq))
+            arguments1 = [q1, q2, lambdas, dt]
+            arguments2 = [q0, q1, lambdas, dt]
 
-        # numpy is more convenient and effective
-        for key, value in self.history.items():
-            self.history[key] = np.array(value).squeeze()
-        return self.history
+            variables = [q0, q1, q2, lambdas, dt]
+            titles = ["q-1", "q", "q+1", "lambda", "dt"]
+
+        ld = self._discrete_lagrangian()
+        d1ld = cs.jacobian(ld(*arguments1), q1)
+        d2ld = cs.jacobian(ld(*arguments2), q1)
+
+        residual = d1ld.T + d2ld.T
+
+        # If lagrangian is augmented, we need
+        # to add the constraints
+        if self._constrained:
+            phi = self._dynamics_constraint
+            residual = cs.vcat([residual, phi(q2)])
+
+        return cs.Function(
+            "del",
+            variables,
+            [residual],
+            titles,
+            ["DEL Residual"],
+        )
 
 
-class DelmIntegrator(Integrator):
-    """Discrete Euler-Lagrange integrator in Momentum form"""
-
-    def __init__(self):
-        super().__init__()
-        self._p_0: cs.SX = None
-        self._p_residual: cs.Function = None
-        self._p_next: cs.Function = None
-
-    def set_delm(self, p_residual: cs.Function, p_next: cs.Function):
-        """Specify momentum residual and next momentum functions"""
-        self._p_residual = p_residual
-        self._p_next = p_next
-
-    def set_initial(self, initial: [cs.SX, cs.SX]):
-        """Specify initial state of the system in terms of state and momentum"""
-        self._q_0 = initial[0]
-        self._p_0 = initial[1]
-
-    def solve(self, backend="newton"):
-        """Solve the DELM"""
-        # derive number of lagrange multipliers
-        # probably nnz_out not the best way
-        # TODO: check if nnz_out() is ok
-        lagrange_mult_dim = self._p_residual.nnz_out() - self._q_0.shape[0]
-
-        # Initialize the history
-        self.history = {}
-        self.history["state"] = [self._q_0]
-        self.history["p"] = [self._p_0]
-        self.history["multipliers"] = [
-            np.zeros(lagrange_mult_dim),
-        ]
-        # Include required metrics
-        for metric in self.metrics:
-            q1 = self.history["state"][0]
-            dq1 = np.zeros_like(q1)
-            self.history[metric.name()] = [metric(q1, dq1)]
-
-        # Define the rootfinder problem
-        rf = cs.rootfinder("rf", backend, self._p_residual)
-
-        for _ in range(1, self._steps):
-            q1 = self.history["state"][-1]
-            p1 = self.history["p"][-1]
-
-            # solve the residual and obtain
-            # the next state of the system
-            # and the next momentum, as well
-            # as the lagrange multipliers
-            sol = np.array(rf([*q1, *np.zeros(lagrange_mult_dim)], p1, q1, self._dt))
-            q2 = sol[: self._q_0.shape[0]].ravel()
-            p2 = self._p_next(q1, q2, self._dt)
-            mult = sol[self._q_0.shape[0] :].ravel()
-
-            # update the history
-            self.history["state"].append(q2)
-            self.history["multipliers"].append(mult)
-            self.history["p"].append(p2)
-
-            # update the metrics
-            for metric in self.metrics:
-                dq = (q2 - q1) / self._dt
-                self.history[metric.name()].append(metric(q2, dq))
-
-        # numpy is more convenient and effective
-        for key, value in self.history.items():
-            self.history[key] = np.array(value).squeeze()
-        return self.history
+class DelmIntegrator(VariationalIntegrator):
+    def step(self):
+        """(q0, p0) -> (q1, p1)"""
+        raise NotImplementedError
