@@ -78,7 +78,7 @@ class VariationalIntegrator:
         """Get a system for a next step of integration"""
         raise NotImplementedError
 
-    def _append_dynamics_constraint(self, constr: cs.Function):
+    def _append_dynamics_constraints(self, constr: cs.Function):
         """Compose a dynamics constraint function
         phi(q) = residual [number of constraints x 1]"""
         if self._dynamics_constraint is None:
