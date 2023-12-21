@@ -19,8 +19,23 @@ class VaritopProblem:
 
         self._rule: cs.Function = None
         self._dynamics_constraints: List[cs.Function] = []
+        self._forces: List[cs.Function] = []
         self._dynamics: cs.Function = None
         self._integrator: VariationalIntegrator = None
+        self._free: bool = False
+
+    @property
+    def free(self) -> bool:
+        """Get free"""
+        return self._free
+
+    @free.setter
+    def free(self, free: bool):
+        """Set free"""
+        self._free = free
+
+        if self._integrator is not None:
+            self.integrator.free = free
 
     @property
     def rule(self) -> cs.Function:
@@ -65,9 +80,12 @@ class VaritopProblem:
 
         self._integrator = integrator()
         self._integrator.nq = self.nq
-        self._integrator.lagrangian = self._dynamics
-        self._integrator.rule = self._rule
+        self._integrator.nu = self.nu
+        self._integrator.lagrangian = self.dynamics
+        self._integrator.rule = self.rule
+        self._integrator.free = self.free
         self._integrator.add_dynamics_constraints(self._dynamics_constraints)
+        self._integrator.add_generalized_forces(self._forces)
 
     def add_dynamics_constraints(self, constraints: List[cs.Function]):
         """Add dynamics constraint"""
@@ -75,6 +93,13 @@ class VaritopProblem:
 
         if self._integrator is not None:
             self._integrator.add_dynamics_constraints(constraints)
+
+    def add_forces(self, forces: List[cs.Function]):
+        """Add forces"""
+        self._forces.extend(forces)
+
+        if self._integrator is not None:
+            self._integrator.add_generalized_forces(forces)
 
     @property
     def nodes(self) -> int:
@@ -154,3 +179,8 @@ class VaritopProblem:
     def velocity(self) -> List[Variable]:
         """Get velocity variables"""
         return self._variables[Velocity]
+
+    @property
+    def control(self) -> List[Variable]:
+        """Get control variables"""
+        return self._variables[Control]
