@@ -157,8 +157,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../math/math.html">Mathematical Background</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Mathematical Background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../math/00_variational_integrators.html">Variational Integrators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../integrator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
@@ -212,7 +216,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#varitop.problem.VaritopProblem" title="varitop.problem.VaritopProblem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VaritopProblem</span></code></a></p></td>
-<td><p>Problem is going to be here</p></td>
+<td><p>Variational Optimization Problem</p></td>
 </tr>
 </tbody>
 </table>
@@ -220,89 +224,99 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">VaritopProblem</span></span><a class="headerlink" href="#varitop.problem.VaritopProblem" title="Permalink to this definition">#</a></dt>
-<dd><p>Problem is going to be here</p>
+<dd><p>Variational Optimization Problem</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.free">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.free" title="Permalink to this definition">#</a></dt>
-<dd><p>Get free</p>
+<dd><p>Determines if body is free-floating</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.rule">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.rule" title="Permalink to this definition">#</a></dt>
-<dd><p>Get rule</p>
+<dd><p>Midpoint rule</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.dynamics">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dynamics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.dynamics" title="Permalink to this definition">#</a></dt>
-<dd><p>Get dynamics</p>
+<dd><p>System dynamics</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.integrator">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">integrator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../integrator/index.html#varitop.integrator.VariationalIntegrator" title="varitop.integrator.VariationalIntegrator"><span class="pre">varitop.integrator.VariationalIntegrator</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.integrator" title="Permalink to this definition">#</a></dt>
-<dd><p>Get integrator</p>
+<dd><p>Problem integrator</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.nodes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.nodes" title="Permalink to this definition">#</a></dt>
-<dd><p>Set number of nodes</p>
+<dd><p>Number of solution nodes</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.nq">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.nq" title="Permalink to this definition">#</a></dt>
-<dd><p>Set number of generalized coordinates</p>
+<dd><p>Number of generalized coordinates</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.nv">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.nv" title="Permalink to this definition">#</a></dt>
-<dd><p>Set number of generalized velocities</p>
+<dd><p>Number of generalized velocities</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.nu">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.nu" title="Permalink to this definition">#</a></dt>
-<dd><p>Set number of controls</p>
+<dd><p>Number of controls</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.state">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.state" title="Permalink to this definition">#</a></dt>
-<dd><p>Get state variables</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.state" title="Permalink to this definition">#</a></dt>
+<dd><p>System state (projected)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.velocity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">velocity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.velocity" title="Permalink to this definition">#</a></dt>
-<dd><p>Get velocity variables</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">velocity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>System velocty (projected)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.control">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.control" title="Permalink to this definition">#</a></dt>
-<dd><p>Get control variables</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.control" title="Permalink to this definition">#</a></dt>
+<dd><p>System control (projected)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.add_dynamics_constraints">
 <span class="sig-name descname"><span class="pre">add_dynamics_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VaritopProblem.add_dynamics_constraints" title="Permalink to this definition">#</a></dt>
-<dd><p>Add dynamics constraint</p>
+<dd><p>Add coonstraint for constrained dynamics model</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.add_forces">
 <span class="sig-name descname"><span class="pre">add_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VaritopProblem.add_forces" title="Permalink to this definition">#</a></dt>
-<dd><p>Add forces</p>
+<dd><p>Add external forces</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.create_variable">
 <span class="sig-name descname"><span class="pre">create_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></span></span><a class="headerlink" href="#varitop.problem.VaritopProblem.create_variable" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> (<em>type</em><em>[</em><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><em>Variable</em></a><em>]</em>) – which variable to create</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – varaible name</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – variable dimensionality</p></li>
+<li><p><strong>active</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – at which nodes variable is active</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

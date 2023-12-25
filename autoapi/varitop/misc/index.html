@@ -157,8 +157,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../math/math.html">Mathematical Background</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Mathematical Background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../math/00_variational_integrators.html">Variational Integrators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../integrator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../problem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
@@ -203,7 +207,7 @@
         <article role="main">
           <section id="module-varitop.misc">
 <span id="varitop-misc"></span><h1><a class="reference internal" href="#module-varitop.misc" title="varitop.misc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a><a class="headerlink" href="#module-varitop.misc" title="Permalink to this heading">#</a></h1>
-<p>Anything unsorted for now goes here.</p>
+<p>Module utility functions</p>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
 <section id="functions">
@@ -211,34 +215,71 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.skew_quaternion" title="varitop.misc.skew_quaternion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skew_quaternion</span></code></a>(q1)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.skew_quaternion" title="varitop.misc.skew_quaternion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skew_quaternion</span></code></a>(→ casadi.SX)</p></td>
 <td><p>Skew symmetric quaternion matrix</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.qconj" title="varitop.misc.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(q)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.qconj" title="varitop.misc.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(→ casadi.SX)</p></td>
 <td><p>Quaternion conjugate</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.euler_rule" title="varitop.misc.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(q1, q2, dt)</p></td>
-<td><p>Euler rule for integration</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.euler_rule" title="varitop.misc.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(→ [casadi.SX, casadi.SX])</p></td>
+<td><p>Euler midpoint rule for integration</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="varitop.misc.skew_quaternion">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">skew_quaternion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.misc.skew_quaternion" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">skew_quaternion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.misc.skew_quaternion" title="Permalink to this definition">#</a></dt>
 <dd><p>Skew symmetric quaternion matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q1</strong> (<em>casadi.SX</em>) – quaternion to make matrix from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>L(q)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="varitop.misc.qconj">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">qconj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.misc.qconj" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">qconj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.misc.qconj" title="Permalink to this definition">#</a></dt>
 <dd><p>Quaternion conjugate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>casadi.SX</em>) – quaternion to conjugate</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q*</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="varitop.misc.euler_rule">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">euler_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.misc.euler_rule" title="Permalink to this definition">#</a></dt>
-<dd><p>Euler rule for integration</p>
+<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">euler_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="pre">casadi.SX</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">casadi.SX</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#varitop.misc.euler_rule" title="Permalink to this definition">#</a></dt>
+<dd><p>Euler midpoint rule for integration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>casadi.SX</em>) – first state</p></li>
+<li><p><strong>q2</strong> (<em>casadi.SX</em>) – second state</p></li>
+<li><p><strong>dt</strong> (<em>casadi.SX</em>) – time step</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q, dq</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[casadi.SX, casadi.SX]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

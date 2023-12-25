@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Anything unsorted for now goes here.
+   Module utility functions
 
 
 
@@ -24,18 +24,37 @@ Functions
 
 
 
-.. py:function:: skew_quaternion(q1)
+.. py:function:: skew_quaternion(q1: casadi.SX) -> casadi.SX
 
    Skew symmetric quaternion matrix
 
+   :param q1: quaternion to make matrix from
+   :type q1: casadi.SX
+   :return: L(q)
+   :rtype: casadi.SX
 
-.. py:function:: qconj(q)
+
+.. py:function:: qconj(q: casadi.SX) -> casadi.SX
 
    Quaternion conjugate
 
+   :param q: quaternion to conjugate
+   :type q: casadi.SX
+   :return: q*
+   :rtype: casadi.SX
 
-.. py:function:: euler_rule(q1, q2, dt)
 
-   Euler rule for integration
+.. py:function:: euler_rule(q1: casadi.SX, q2: casadi.SX, dt: casadi.SX) -> [casadi.SX, casadi.SX]
+
+   Euler midpoint rule for integration
+
+   :param q1: first state
+   :param q2: second state
+   :param dt: time step
+   :type q1: casadi.SX
+   :type q2: casadi.SX
+   :type dt: casadi.SX
+   :return: q, dq
+   :rtype: Tuple[casadi.SX, casadi.SX]
 
 

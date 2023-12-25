@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Integrators modules
+   Integrators
 
 
 
@@ -30,61 +30,79 @@ Classes
    Abstract variational integrator class
 
    .. py:property:: free
+      :type: bool
 
-      Getter for free
+      Determines if body is free-floating
 
 
    .. py:property:: lagrangian
+      :type: casadi.Function
 
-      Getter for continuous lagrangian
+      System's continuous lagrangian
 
 
    .. py:property:: rule
+      :type: casadi.Function
 
-      Getter for approximation rule
+      Midpoint rule
 
 
    .. py:property:: nq
+      :type: int
 
-      Getter for number of generalized coordinates
+      Number of generalized coordinates
 
 
    .. py:property:: nu
+      :type: int
 
-      Getter for number of controls
+      Number of controls
 
 
    .. py:method:: _discrete_lagrangian() -> casadi.Function
 
-      Discretize the Lagrangian
-      Ld(q1, q2, dt) = L(q, dq) * dt
+      Discretization of system's lagrangian
+
+      :return: Ld(q0, q1, h)
+      :rtype: casadi.Function
 
 
    .. py:method:: step()
       :abstractmethod:
 
-      Get a system for a next step of integration
+      Given the state of the system, generate the residual
 
 
    .. py:method:: _append_generalized_force(force: casadi.Function)
 
-      Compose a generalized force function
+      Compose a generalized force
+
+      :param force: force to generalize and add
+      :type force: casadi.Function
 
 
    .. py:method:: add_generalized_forces(forces: List[casadi.Function])
 
       Wrapper for forces lists
 
+      :param forces: A list of forces
+      :type forces: List[casadi.Function]
+
 
    .. py:method:: _append_dynamics_constraint(constr: casadi.Function)
 
-      Compose a dynamics constraint function
-      phi(q) = residual [number of constraints x 1]
+      Add phi(q) for constrained dynamics
+
+      :param constr: constraint residual
+      :type constr: casadi.Function
 
 
    .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
 
-      Add a constraint on dynamics of the system
+      Wrapper for constraints lists
+
+      :param constraints: A list of constraints
+      :type constraints: List[casadi.Function]
 
 
 
@@ -106,7 +124,7 @@ Classes
 
    Bases: :py:obj:`VariationalIntegrator`
 
-   Abstract variational integrator class
+   Discrete Euler-Lagrange in Momentum form
 
    .. py:method:: step()
       :abstractmethod:

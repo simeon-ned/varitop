@@ -157,8 +157,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../math/math.html">Mathematical Background</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Mathematical Background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../math/00_variational_integrators.html">Variational Integrators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../problem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
@@ -203,7 +207,7 @@
         <article role="main">
           <section id="module-varitop.integrator">
 <span id="varitop-integrator"></span><h1><a class="reference internal" href="#module-varitop.integrator" title="varitop.integrator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a><a class="headerlink" href="#module-varitop.integrator" title="Permalink to this heading">#</a></h1>
-<p>Integrators modules</p>
+<p>Integrators</p>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
 <section id="classes">
@@ -218,7 +222,7 @@
 <td><p>Discrete Euler-Lagrange integrator</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#varitop.integrator.DelmIntegrator" title="varitop.integrator.DelmIntegrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DelmIntegrator</span></code></a></p></td>
-<td><p>Abstract variational integrator class</p></td>
+<td><p>Discrete Euler-Lagrange in Momentum form</p></td>
 </tr>
 </tbody>
 </table>
@@ -229,70 +233,96 @@
 <dd><p>Abstract variational integrator class</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.free">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free</span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.free" title="Permalink to this definition">#</a></dt>
-<dd><p>Getter for free</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.free" title="Permalink to this definition">#</a></dt>
+<dd><p>Determines if body is free-floating</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.lagrangian">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.lagrangian" title="Permalink to this definition">#</a></dt>
-<dd><p>Getter for continuous lagrangian</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.lagrangian" title="Permalink to this definition">#</a></dt>
+<dd><p>System’s continuous lagrangian</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.rule">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.rule" title="Permalink to this definition">#</a></dt>
-<dd><p>Getter for approximation rule</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.rule" title="Permalink to this definition">#</a></dt>
+<dd><p>Midpoint rule</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nq">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nq" title="Permalink to this definition">#</a></dt>
-<dd><p>Getter for number of generalized coordinates</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nq" title="Permalink to this definition">#</a></dt>
+<dd><p>Number of generalized coordinates</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nu">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nu" title="Permalink to this definition">#</a></dt>
-<dd><p>Getter for number of controls</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nu" title="Permalink to this definition">#</a></dt>
+<dd><p>Number of controls</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator._discrete_lagrangian">
 <span class="sig-name descname"><span class="pre">_discrete_lagrangian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.Function</span></span></span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator._discrete_lagrangian" title="Permalink to this definition">#</a></dt>
-<dd><p>Discretize the Lagrangian
-Ld(q1, q2, dt) = L(q, dq) * dt</p>
+<dd><p>Discretization of system’s lagrangian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Ld(q0, q1, h)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>casadi.Function</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.step">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.step" title="Permalink to this definition">#</a></dt>
-<dd><p>Get a system for a next step of integration</p>
+<dd><p>Given the state of the system, generate the residual</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator._append_generalized_force">
 <span class="sig-name descname"><span class="pre">_append_generalized_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator._append_generalized_force" title="Permalink to this definition">#</a></dt>
-<dd><p>Compose a generalized force function</p>
+<dd><p>Compose a generalized force</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>force</strong> (<em>casadi.Function</em>) – force to generalize and add</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.add_generalized_forces">
 <span class="sig-name descname"><span class="pre">add_generalized_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.add_generalized_forces" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper for forces lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>forces</strong> (<em>List</em><em>[</em><em>casadi.Function</em><em>]</em>) – A list of forces</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator._append_dynamics_constraint">
 <span class="sig-name descname"><span class="pre">_append_dynamics_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator._append_dynamics_constraint" title="Permalink to this definition">#</a></dt>
-<dd><p>Compose a dynamics constraint function
-phi(q) = residual [number of constraints x 1]</p>
+<dd><p>Add phi(q) for constrained dynamics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constr</strong> (<em>casadi.Function</em>) – constraint residual</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.add_dynamics_constraints">
 <span class="sig-name descname"><span class="pre">add_dynamics_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.add_dynamics_constraints" title="Permalink to this definition">#</a></dt>
-<dd><p>Add a constraint on dynamics of the system</p>
+<dd><p>Wrapper for constraints lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constraints</strong> (<em>List</em><em>[</em><em>casadi.Function</em><em>]</em>) – A list of constraints</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -314,7 +344,7 @@ phi(q) = residual [number of constraints x 1]</p>
 <dt class="sig sig-object py" id="varitop.integrator.DelmIntegrator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.integrator.</span></span><span class="sig-name descname"><span class="pre">DelmIntegrator</span></span><a class="headerlink" href="#varitop.integrator.DelmIntegrator" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#varitop.integrator.VariationalIntegrator" title="varitop.integrator.VariationalIntegrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariationalIntegrator</span></code></a></p>
-<p>Abstract variational integrator class</p>
+<p>Discrete Euler-Lagrange in Momentum form</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.DelmIntegrator.step">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.DelmIntegrator.step" title="Permalink to this definition">#</a></dt>
