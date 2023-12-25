@@ -1,1 +1,2 @@
-furo==2021.11.16
+furo==2023.9.10
+sphinx-autoapi

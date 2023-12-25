@@ -6,22 +6,26 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'varitop'
-copyright = '2023, Simeon Nedelchev, Igor Alentev'
-author = 'Simeon Nedelchev, Igor Alentev'
+project = 'VarItOP'
+copyright = '-'
+author = '-'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+   'sphinx.ext.duration',
+   'autoapi.extension' # autogenerate varitop docs
+]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-
+autoapi_dirs = ['../varitop'] # directory with docs
+autoapi_add_toctree_entry = False # manual toctree
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'furo'
 html_static_path = ['_static']
