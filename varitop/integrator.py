@@ -1,4 +1,4 @@
-"""Integrators modules"""
+"""Integrators"""
 
 from typing import List
 from .misc import skew_quaternion
@@ -20,58 +20,55 @@ class VariationalIntegrator:
         self._free: bool = False
 
     @property
-    def free(self):
-        """Getter for free"""
+    def free(self) -> bool:
+        """Determines if body is free-floating"""
         return self._free
 
     @free.setter
     def free(self, free: bool):
-        """Setter for free"""
         self._free = free
 
     @property
-    def lagrangian(self):
-        """Getter for continuous lagrangian"""
+    def lagrangian(self) -> cs.Function:
+        """System's continuous lagrangian"""
         return self._lagrangian
 
     @lagrangian.setter
     def lagrangian(self, lagrangian: cs.Function):
-        """Setter for continuous lagrangian"""
         self._lagrangian = lagrangian
 
     @property
-    def rule(self):
-        """Getter for approximation rule"""
+    def rule(self) -> cs.Function:
+        """Midpoint rule"""
         return self._rule
 
     @rule.setter
     def rule(self, rule: cs.Function):
-        """Setter for approximation rule"""
         self._rule = rule
 
     @property
-    def nq(self):
-        """Getter for number of generalized coordinates"""
+    def nq(self) -> int:
+        """Number of generalized coordinates"""
         return self._nq
 
     @nq.setter
     def nq(self, nq: int):
-        """Setter for number of generalized coordinates"""
         self._nq = nq
 
     @property
-    def nu(self):
-        """Getter for number of controls"""
+    def nu(self) -> int:
+        """Number of controls"""
         return self._nu
 
     @nu.setter
     def nu(self, nu: int):
-        """Setter for number of controls"""
         self._nu = nu
 
     def _discrete_lagrangian(self) -> cs.Function:
-        """Discretize the Lagrangian
-        Ld(q1, q2, dt) = L(q, dq) * dt"""
+        """Discretization of system's lagrangian
+        
+        :return: Ld(q0, q1, h)
+        :rtype: casadi.Function"""
 
         if self.nq is None:
             raise RuntimeError("Number of generalized coordinates not set.")
@@ -112,11 +109,14 @@ class VariationalIntegrator:
         return ld
 
     def step(self):
-        """Get a system for a next step of integration"""
+        """Given the state of the system, generate the residual"""
         raise NotImplementedError
 
     def _append_generalized_force(self, force: cs.Function):
-        """Compose a generalized force function"""
+        """Compose a generalized force
+        
+        :param force: force to generalize and add
+        :type force: casadi.Function"""
         self._forced = True
         if self.free:
             # Fd = 2qF
@@ -143,13 +143,18 @@ class VariationalIntegrator:
             raise NotImplementedError
 
     def add_generalized_forces(self, forces: List[cs.Function]):
-        """Wrapper for forces lists"""
+        """Wrapper for forces lists
+        
+        :param forces: A list of forces
+        :type forces: List[casadi.Function]"""
         for force in forces:
             self._append_generalized_force(force)
 
     def _append_dynamics_constraint(self, constr: cs.Function):
-        """Compose a dynamics constraint function
-        phi(q) = residual [number of constraints x 1]"""
+        """Add phi(q) for constrained dynamics
+        
+        :param constr: constraint residual
+        :type constr: casadi.Function"""
         self._constrained = True
         if self._dynamics_constraint is None:
             self._dynamics_constraint = constr
@@ -164,7 +169,10 @@ class VariationalIntegrator:
             )
 
     def add_dynamics_constraints(self, constraints: List[cs.Function]):
-        """Add a constraint on dynamics of the system"""
+        """Wrapper for constraints lists
+        
+        :param constraints: A list of constraints
+        :type constraints: List[casadi.Function]"""
         for constr in constraints:
             self._append_dynamics_constraint(constr)
 
@@ -247,6 +255,7 @@ class DelIntegrator(VariationalIntegrator):
 
 
 class DelmIntegrator(VariationalIntegrator):
+    """Discrete Euler-Lagrange in Momentum form"""
     def step(self):
         """(q0, p0) -> (q1, p1)"""
         raise NotImplementedError

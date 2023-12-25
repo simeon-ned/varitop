@@ -8,7 +8,7 @@ from .variables import Variable, Momentum, State, Velocity, Control
 
 
 class VaritopProblem:
-    """Problem is going to be here"""
+    """Variational Optimization Problem"""
 
     def __init__(self):
         self._variables: Dict[str, Variable] = {}
@@ -26,12 +26,11 @@ class VaritopProblem:
 
     @property
     def free(self) -> bool:
-        """Get free"""
+        """Determines if body is free-floating"""
         return self._free
 
     @free.setter
     def free(self, free: bool):
-        """Set free"""
         self._free = free
 
         if self._integrator is not None:
@@ -39,12 +38,11 @@ class VaritopProblem:
 
     @property
     def rule(self) -> cs.Function:
-        """Get rule"""
+        """Midpoint rule"""
         return self._rule
 
     @rule.setter
     def rule(self, rule: cs.Function):
-        """Set rule"""
         self._rule = rule
 
         if self._integrator is not None:
@@ -52,23 +50,20 @@ class VaritopProblem:
 
     @property
     def dynamics(self) -> cs.Function:
-        """Get dynamics"""
+        """System dynamics"""
         return self._dynamics
 
     @dynamics.setter
     def dynamics(self, dynamics: cs.Function):
-        """Set dynamics"""
         self._dynamics = dynamics
 
     @property
     def integrator(self) -> VariationalIntegrator:
-        """Get integrator"""
+        """Problem integrator"""
         return self._integrator
 
     @integrator.setter
     def integrator(self, integrator: VariationalIntegrator):
-        """Setup the integrator"""
-
         if self.nq is None:
             raise RuntimeError("Number of generalized coordinates not set.")
 
@@ -88,14 +83,14 @@ class VaritopProblem:
         self._integrator.add_generalized_forces(self._forces)
 
     def add_dynamics_constraints(self, constraints: List[cs.Function]):
-        """Add dynamics constraint"""
+        """Add coonstraint for constrained dynamics model"""
         self._dynamics_constraints.extend(constraints)
 
         if self._integrator is not None:
             self._integrator.add_dynamics_constraints(constraints)
 
     def add_forces(self, forces: List[cs.Function]):
-        """Add forces"""
+        """Add external forces"""
         self._forces.extend(forces)
 
         if self._integrator is not None:
@@ -103,51 +98,56 @@ class VaritopProblem:
 
     @property
     def nodes(self) -> int:
-        """Set number of nodes"""
+        """Number of solution nodes"""
         return self._nodes
 
     @nodes.setter
     def nodes(self, nodes: int):
-        """Set number of nodes"""
         self._nodes = nodes
 
     @property
     def nq(self) -> int:
-        """Set number of generalized coordinates"""
+        """Number of generalized coordinates"""
         return self._nq
 
     @nq.setter
     def nq(self, nq: int):
-        """Set number of generalized coordinates"""
         self._nq = nq
         self.create_state("q", nq)
 
     @property
     def nv(self) -> int:
-        """Set number of generalized velocities"""
+        """Number of generalized velocities"""
         return self._nv
 
     @nv.setter
     def nv(self, nv: int):
-        """Set number of generalized velocities"""
         self._nv = nv
         self.create_velocity("v", nv)
 
     @property
     def nu(self) -> int:
-        """Set number of controls"""
+        """Number of controls"""
         return self._nu
 
     @nu.setter
     def nu(self, nu: int):
-        """Set number of controls"""
         self._nu = nu
         self.create_control("u", nu)
 
     def create_variable(
         self, variable: type[Variable], name: str, dim: int, active: list[int] = None
     ) -> Variable:
-        """Create a variable"""
+        """Create a variable
+        
+        :param variable: which variable to create
+        :param name: varaible name
+        :param dim: variable dimensionality
+        :param active: at which nodes variable is active
+        :type variable: type[Variable]
+        :type name: str
+        :type dim: int
+        :type active: list[int]"""
         if active is None:
             active = np.ones(self.nodes, dtype=int)
 
@@ -171,16 +171,16 @@ class VaritopProblem:
         return self.create_variable(Control, name, active)
 
     @property
-    def state(self) -> List[Variable]:
-        """Get state variables"""
+    def state(self) -> Variable:
+        """System state (projected)"""
         return self._variables[State]
 
     @property
-    def velocity(self) -> List[Variable]:
-        """Get velocity variables"""
+    def velocity(self) -> Variable:
+        """System velocty (projected)"""
         return self._variables[Velocity]
 
     @property
-    def control(self) -> List[Variable]:
-        """Get control variables"""
+    def control(self) -> Variable:
+        """System control (projected)"""
         return self._variables[Control]
