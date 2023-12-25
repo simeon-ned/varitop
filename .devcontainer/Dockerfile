@@ -3,7 +3,7 @@ FROM mambaorg/micromamba:1.5.3
 USER root
 # ffmpeg - to run mujoco renderer
 # texlive-latex-extra texlive-fonts-recommended cm-super - to have a pretty matplotlib
-RUN apt-get update -y && apt-get install git ffmpeg texlive-fonts-recommended cm-super dvipng -y
+RUN apt-get update -y && apt-get install git ffmpeg python3-sphinx texlive-fonts-recommended cm-super dvipng -y
 
 USER $MAMBA_USER
 
