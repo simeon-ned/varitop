@@ -1,2 +1,2 @@
-furo==2023.9.10
+furo
 sphinx-autoapi
