@@ -1,0 +1,41 @@
+:py:mod:`varitop.misc`
+======================
+
+.. py:module:: varitop.misc
+
+.. autoapi-nested-parse::
+
+   Anything unsorted for now goes here.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   varitop.misc.skew_quaternion
+   varitop.misc.qconj
+   varitop.misc.euler_rule
+
+
+
+.. py:function:: skew_quaternion(q1)
+
+   Skew symmetric quaternion matrix
+
+
+.. py:function:: qconj(q)
+
+   Quaternion conjugate
+
+
+.. py:function:: euler_rule(q1, q2, dt)
+
+   Euler rule for integration
+
+

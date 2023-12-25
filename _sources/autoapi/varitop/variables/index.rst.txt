@@ -1,0 +1,80 @@
+:py:mod:`varitop.variables`
+===========================
+
+.. py:module:: varitop.variables
+
+.. autoapi-nested-parse::
+
+   Variables are here
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   varitop.variables.Variable
+   varitop.variables.Momentum
+   varitop.variables.State
+   varitop.variables.Velocity
+   varitop.variables.Control
+
+
+
+
+.. py:class:: Variable(name: str, dim: int, active: list[int])
+
+
+   Varaibles are here
+
+   .. py:property:: shape
+
+
+   .. py:property:: vars
+
+
+   .. py:property:: var
+
+      Variable
+
+
+   .. py:method:: __getitem__(key)
+
+
+
+.. py:class:: Momentum(name: str, dim: int, active: list[int])
+
+
+   Bases: :py:obj:`Variable`
+
+   Momentum is here
+
+
+.. py:class:: State(name: str, dim: int, active: list[int])
+
+
+   Bases: :py:obj:`Variable`
+
+   State is here
+
+
+.. py:class:: Velocity(name: str, dim: int, active: list[int])
+
+
+   Bases: :py:obj:`Variable`
+
+   Velocity is here
+
+
+.. py:class:: Control(name: str, dim: int, active: list[int])
+
+
+   Bases: :py:obj:`Variable`
+
+   Control is here
+
+

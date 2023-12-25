@@ -1,0 +1,18 @@
+:py:mod:`varitop`
+=================
+
+.. py:module:: varitop
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   integrator/index.rst
+   misc/index.rst
+   problem/index.rst
+   variables/index.rst
+
+

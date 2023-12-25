@@ -1,0 +1,131 @@
+:py:mod:`varitop.problem`
+=========================
+
+.. py:module:: varitop.problem
+
+.. autoapi-nested-parse::
+
+   Problem module
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   varitop.problem.VaritopProblem
+
+
+
+
+.. py:class:: VaritopProblem
+
+
+   Problem is going to be here
+
+   .. py:property:: free
+      :type: bool
+
+      Get free
+
+
+   .. py:property:: rule
+      :type: casadi.Function
+
+      Get rule
+
+
+   .. py:property:: dynamics
+      :type: casadi.Function
+
+      Get dynamics
+
+
+   .. py:property:: integrator
+      :type: varitop.integrator.VariationalIntegrator
+
+      Get integrator
+
+
+   .. py:property:: nodes
+      :type: int
+
+      Set number of nodes
+
+
+   .. py:property:: nq
+      :type: int
+
+      Set number of generalized coordinates
+
+
+   .. py:property:: nv
+      :type: int
+
+      Set number of generalized velocities
+
+
+   .. py:property:: nu
+      :type: int
+
+      Set number of controls
+
+
+   .. py:property:: state
+      :type: List[varitop.variables.Variable]
+
+      Get state variables
+
+
+   .. py:property:: velocity
+      :type: List[varitop.variables.Variable]
+
+      Get velocity variables
+
+
+   .. py:property:: control
+      :type: List[varitop.variables.Variable]
+
+      Get control variables
+
+
+   .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
+
+      Add dynamics constraint
+
+
+   .. py:method:: add_forces(forces: List[casadi.Function])
+
+      Add forces
+
+
+   .. py:method:: create_variable(variable: type[varitop.variables.Variable], name: str, dim: int, active: list[int] = None) -> varitop.variables.Variable
+
+      Create a variable
+
+
+   .. py:method:: create_state(name: str, dim: int, active: list[int] = None) -> varitop.variables.Variable
+
+      Create a state variable
+
+
+   .. py:method:: create_velocity(name: str, active: list[int] = None) -> varitop.variables.Variable
+
+      Create a velocity variable
+
+
+   .. py:method:: create_momentum(name: str, active: list[int] = None) -> varitop.variables.Variable
+
+      Create a momentum variable
+
+
+   .. py:method:: create_control(name: str, active: list[int] = None) -> varitop.variables.Variable
+
+      Create a control variable
+
+
+

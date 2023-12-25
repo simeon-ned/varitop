@@ -1,0 +1,117 @@
+:py:mod:`varitop.integrator`
+============================
+
+.. py:module:: varitop.integrator
+
+.. autoapi-nested-parse::
+
+   Integrators modules
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   varitop.integrator.VariationalIntegrator
+   varitop.integrator.DelIntegrator
+   varitop.integrator.DelmIntegrator
+
+
+
+
+.. py:class:: VariationalIntegrator
+
+
+   Abstract variational integrator class
+
+   .. py:property:: free
+
+      Getter for free
+
+
+   .. py:property:: lagrangian
+
+      Getter for continuous lagrangian
+
+
+   .. py:property:: rule
+
+      Getter for approximation rule
+
+
+   .. py:property:: nq
+
+      Getter for number of generalized coordinates
+
+
+   .. py:property:: nu
+
+      Getter for number of controls
+
+
+   .. py:method:: _discrete_lagrangian() -> casadi.Function
+
+      Discretize the Lagrangian
+      Ld(q1, q2, dt) = L(q, dq) * dt
+
+
+   .. py:method:: step()
+      :abstractmethod:
+
+      Get a system for a next step of integration
+
+
+   .. py:method:: _append_generalized_force(force: casadi.Function)
+
+      Compose a generalized force function
+
+
+   .. py:method:: add_generalized_forces(forces: List[casadi.Function])
+
+      Wrapper for forces lists
+
+
+   .. py:method:: _append_dynamics_constraint(constr: casadi.Function)
+
+      Compose a dynamics constraint function
+      phi(q) = residual [number of constraints x 1]
+
+
+   .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
+
+      Add a constraint on dynamics of the system
+
+
+
+.. py:class:: DelIntegrator
+
+
+   Bases: :py:obj:`VariationalIntegrator`
+
+   Discrete Euler-Lagrange integrator
+
+   .. py:method:: step()
+
+      (q0, q1) -> (q1, q2)
+
+
+
+.. py:class:: DelmIntegrator
+
+
+   Bases: :py:obj:`VariationalIntegrator`
+
+   Abstract variational integrator class
+
+   .. py:method:: step()
+      :abstractmethod:
+
+      (q0, p0) -> (q1, p1)
+
+
+
