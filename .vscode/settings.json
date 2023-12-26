@@ -1,0 +1,10 @@
+{
+        "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.rst$",
+                "cmd": "cd /workspaces/varitop/docs && make html"
+            },
+        ]
+    }
+}
