@@ -6,5 +6,6 @@
                 "cmd": "cd /workspaces/varitop/docs && make html"
             },
         ]
-    }
+    },
+    "esbonio.sphinx.confDir": ""
 }

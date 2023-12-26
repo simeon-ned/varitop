@@ -10,7 +10,7 @@ Welcome to VarItOP's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   math/math
+   docs/docs
 
    src/api
 
