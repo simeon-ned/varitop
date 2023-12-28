@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="varitop.misc" href="../misc/index.html" /><link rel="prev" title="varitop" href="../index.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>varitop.integrator - VarItOP documentation</title>
+        <title>varitop.integrator - VarItOp documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -124,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">VarItOP  documentation</div></a>
+      <a href="../../../index.html"><div class="brand">VarItOp  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -147,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
   
   
-  <span class="sidebar-brand-text">VarItOP  documentation</span>
+  <span class="sidebar-brand-text">VarItOp  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -158,10 +158,12 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../docs/docs.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../docs/examples.html">Examples</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../docs/math/math.html">Math Background</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Math Background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../docs/math/00_variational_integrators.html">Variational Integrators</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../docs/markdown.html">Markdown Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../docs/contributing.html">Contributing</a></li>
 </ul>
 </li>
@@ -280,9 +282,22 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.get_residual">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.get_residual" title="Permalink to this definition">#</a></dt>
+<dd><p>Formulate the residual</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.get_rf_residual">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_rf_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.get_rf_residual" title="Permalink to this definition">#</a></dt>
+<dd><p>Reformulate the residual
+to casadi.rootfinder problem</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.step">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.step" title="Permalink to this definition">#</a></dt>
-<dd><p>Given the state of the system, generate the residual</p>
+<dd><p>Perform a step of integration</p>
 </dd></dl>
 
 <dl class="py method">
@@ -297,8 +312,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.add_generalized_forces">
-<span class="sig-name descname"><span class="pre">add_generalized_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.add_generalized_forces" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.add_forces">
+<span class="sig-name descname"><span class="pre">add_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.add_forces" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrapper for forces lists</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -337,9 +352,37 @@
 <dd><p>Bases: <a class="reference internal" href="#varitop.integrator.VariationalIntegrator" title="varitop.integrator.VariationalIntegrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariationalIntegrator</span></code></a></p>
 <p>Discrete Euler-Lagrange integrator</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="varitop.integrator.DelIntegrator.get_residual">
+<span class="sig-name descname"><span class="pre">get_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.Function</span></span></span><a class="headerlink" href="#varitop.integrator.DelIntegrator.get_residual" title="Permalink to this definition">#</a></dt>
+<dd><p>Formulate Discrete Euler-Lagrange residual</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.integrator.DelIntegrator.get_rf_residual">
+<span class="sig-name descname"><span class="pre">get_rf_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.Function</span></span></span><a class="headerlink" href="#varitop.integrator.DelIntegrator.get_rf_residual" title="Permalink to this definition">#</a></dt>
+<dd><p>Reformulate residual to match rootfinder signature</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.DelIntegrator.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.DelIntegrator.step" title="Permalink to this definition">#</a></dt>
-<dd><p>(q0, q1) -&gt; (q1, q2)</p>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#varitop.integrator.DelIntegrator.step" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q0</strong> (<em>np.ndarray</em>) – <span class="math notranslate nohighlight">\(q_{k-1}\)</span></p></li>
+<li><p><strong>q1</strong> (<em>np.ndarray</em>) – <span class="math notranslate nohighlight">\(q_{k}\)</span></p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – <span class="math notranslate nohighlight">\(\mathrm{d}t\)</span></p></li>
+<li><p><strong>u</strong> (<em>np.ndarray</em>) – <span class="math notranslate nohighlight">\(u_{k}\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(q_{k+1}\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+<p>DEL Residual evolution described by: <span class="math notranslate nohighlight">\((q_0, q_1) \rightarrow (q_1, q_2)\)</span></p>
 </dd></dl>
 
 </dd></dl>
@@ -426,14 +469,18 @@
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.nq"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nq</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.nu"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nu</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator._discrete_lagrangian"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._discrete_lagrangian()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.get_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_residual()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.get_rf_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_rf_residual()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.step"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.step()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator._append_generalized_force"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._append_generalized_force()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_generalized_forces"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_generalized_forces()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_forces"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_forces()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator._append_dynamics_constraint"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._append_dynamics_constraint()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_dynamics_constraints"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_dynamics_constraints()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#varitop.integrator.DelIntegrator"><code class="docutils literal notranslate"><span class="pre">DelIntegrator</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.integrator.DelIntegrator.get_residual"><code class="docutils literal notranslate"><span class="pre">DelIntegrator.get_residual()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.DelIntegrator.get_rf_residual"><code class="docutils literal notranslate"><span class="pre">DelIntegrator.get_rf_residual()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.DelIntegrator.step"><code class="docutils literal notranslate"><span class="pre">DelIntegrator.step()</span></code></a></li>
 </ul>
 </li>
@@ -460,5 +507,6 @@
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

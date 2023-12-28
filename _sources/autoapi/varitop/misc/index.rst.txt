@@ -18,10 +18,21 @@ Functions
 
 .. autoapisummary::
 
+   varitop.misc.q2rm
    varitop.misc.skew_quaternion
    varitop.misc.qconj
    varitop.misc.euler_rule
 
+
+
+.. py:function:: q2rm(q: numpy.ndarray) -> numpy.ndarray
+
+   Quaternion to rotation matrix
+
+   :param q: quaternion
+   :type q: np.ndarray
+   :return: rotation matrix
+   :rtype: np.ndarray
 
 
 .. py:function:: skew_quaternion(q1: casadi.SX) -> casadi.SX

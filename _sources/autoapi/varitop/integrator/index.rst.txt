@@ -67,10 +67,23 @@ Classes
       :rtype: casadi.Function
 
 
+   .. py:method:: get_residual()
+      :abstractmethod:
+
+      Formulate the residual
+
+
+   .. py:method:: get_rf_residual()
+      :abstractmethod:
+
+      Reformulate the residual
+      to casadi.rootfinder problem
+
+
    .. py:method:: step()
       :abstractmethod:
 
-      Given the state of the system, generate the residual
+      Perform a step of integration
 
 
    .. py:method:: _append_generalized_force(force: casadi.Function)
@@ -81,7 +94,7 @@ Classes
       :type force: casadi.Function
 
 
-   .. py:method:: add_generalized_forces(forces: List[casadi.Function])
+   .. py:method:: add_forces(forces: List[casadi.Function])
 
       Wrapper for forces lists
 
@@ -113,9 +126,31 @@ Classes
 
    Discrete Euler-Lagrange integrator
 
-   .. py:method:: step()
+   .. py:method:: get_residual() -> casadi.Function
 
-      (q0, q1) -> (q1, q2)
+      Formulate Discrete Euler-Lagrange residual
+
+
+   .. py:method:: get_rf_residual() -> casadi.Function
+
+      Reformulate residual to match rootfinder signature
+
+
+   .. py:method:: step(q0: numpy.ndarray, q1: numpy.ndarray, dt: float, u: numpy.ndarray) -> numpy.ndarray
+
+      :param q0: :math:`q_{k-1}`
+      :type q0: np.ndarray
+      :param q1: :math:`q_{k}`
+      :type q1: np.ndarray
+      :param dt: :math:`\mathrm{d}t`
+      :type dt: float
+      :param u: :math:`u_{k}`
+      :type u: np.ndarray
+      :return: :math:`q_{k+1}`
+      :rtype: np.ndarray
+
+
+      DEL Residual evolution described by: :math:`(q_0, q_1) \rightarrow (q_1, q_2)`
 
 
 
