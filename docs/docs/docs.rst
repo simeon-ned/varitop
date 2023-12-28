@@ -5,4 +5,6 @@ Documentation
 
     math/math
 
+    markdown
+
     contributing

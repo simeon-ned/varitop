@@ -15,7 +15,8 @@ author = '-'
 
 extensions = [
    'sphinx.ext.duration',
-   'autoapi.extension' # autogenerate varitop docs
+   'autoapi.extension', # autogenerate varitop docs
+   'myst_parser', # markdown support
 ]
 
 templates_path = ['_templates']
