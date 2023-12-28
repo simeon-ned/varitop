@@ -1,4 +1,5 @@
 jinja2>=3.0.0
+docutils<0.21,>=0.18.1
 furo
 sphinx-autoapi
 myst-parser
