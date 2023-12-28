@@ -3,6 +3,7 @@
 from typing import List
 from .misc import skew_quaternion
 import casadi as cs
+import numpy as np
 
 
 class VariationalIntegrator:
@@ -66,7 +67,7 @@ class VariationalIntegrator:
 
     def _discrete_lagrangian(self) -> cs.Function:
         """Discretization of system's lagrangian
-        
+
         :return: Ld(q0, q1, h)
         :rtype: casadi.Function"""
 
@@ -108,13 +109,22 @@ class VariationalIntegrator:
         ld = cs.Function("Ld", variables, [l * dt])
         return ld
 
+    def get_residual(self):
+        """Formulate the residual"""
+        raise NotImplementedError
+
+    def get_rf_residual(self):
+        """Reformulate the residual
+        to casadi.rootfinder problem"""
+        raise NotImplementedError
+
     def step(self):
-        """Given the state of the system, generate the residual"""
+        """Perform a step of integration"""
         raise NotImplementedError
 
     def _append_generalized_force(self, force: cs.Function):
         """Compose a generalized force
-        
+
         :param force: force to generalize and add
         :type force: casadi.Function"""
         self._forced = True
@@ -142,9 +152,9 @@ class VariationalIntegrator:
         else:
             raise NotImplementedError
 
-    def add_generalized_forces(self, forces: List[cs.Function]):
+    def add_forces(self, forces: List[cs.Function]):
         """Wrapper for forces lists
-        
+
         :param forces: A list of forces
         :type forces: List[casadi.Function]"""
         for force in forces:
@@ -152,7 +162,7 @@ class VariationalIntegrator:
 
     def _append_dynamics_constraint(self, constr: cs.Function):
         """Add phi(q) for constrained dynamics
-        
+
         :param constr: constraint residual
         :type constr: casadi.Function"""
         self._constrained = True
@@ -170,7 +180,7 @@ class VariationalIntegrator:
 
     def add_dynamics_constraints(self, constraints: List[cs.Function]):
         """Wrapper for constraints lists
-        
+
         :param constraints: A list of constraints
         :type constraints: List[casadi.Function]"""
         for constr in constraints:
@@ -180,8 +190,8 @@ class VariationalIntegrator:
 class DelIntegrator(VariationalIntegrator):
     """Discrete Euler-Lagrange integrator"""
 
-    def step(self):
-        """(q0, q1) -> (q1, q2)"""
+    def get_residual(self) -> cs.Function:
+        """Formulate Discrete Euler-Lagrange residual"""
 
         if self.lagrangian is None:
             raise RuntimeError("Continuous Lagrangian not set.")
@@ -253,9 +263,58 @@ class DelIntegrator(VariationalIntegrator):
             ["DEL Residual"],
         )
 
+    def get_rf_residual(self) -> cs.Function:
+        """Reformulate residual to match rootfinder signature"""
+        res = self.get_residual()
+        nq = self.nq
+        nv = self.nv
+        nu = self.nu
+
+        q0 = cs.SX.sym("q", nq)
+        q1 = cs.SX.sym("q", nq)
+        q2 = cs.SX.sym("q", nq)
+        dt = cs.SX.sym("dt")
+        lambdas = cs.SX.sym("lambda", 1)
+        u = cs.SX.sym("u", nu)
+
+        x = cs.vertcat(q2, lambdas)
+        rfr = cs.Function("rfr", [x, q0, q1, dt, u], [res(q0, q1, q2, dt, lambdas, u)])
+        rf = cs.rootfinder("rf", "newton", rfr)
+        return rf
+
+    def step(
+        self, q0: np.ndarray, q1: np.ndarray, dt: float, u: np.ndarray
+    ) -> np.ndarray:
+        """
+        :param q0: :math:`q_{k-1}`
+        :type q0: np.ndarray
+        :param q1: :math:`q_{k}`
+        :type q1: np.ndarray
+        :param dt: :math:`\\mathrm{d}t`
+        :type dt: float
+        :param u: :math:`u_{k}`
+        :type u: np.ndarray
+        :return: :math:`q_{k+1}`
+        :rtype: np.ndarray
+
+
+        DEL Residual evolution described by: :math:`(q_0, q_1) \\rightarrow (q_1, q_2)`
+        """
+        rf = self.get_rf_residual()
+        guess = q1
+
+        if self._constrained:
+            # Guess lambdas if any
+            guess = np.hstack([guess, np.zeros(self._dynamics_constraint.nnz_out())])
+
+        sol = np.array(rf(guess, q0, q1, dt, u))[:4].ravel()
+
+        return sol
+
 
 class DelmIntegrator(VariationalIntegrator):
     """Discrete Euler-Lagrange in Momentum form"""
+
     def step(self):
         """(q0, p0) -> (q1, p1)"""
         raise NotImplementedError
