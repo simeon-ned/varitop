@@ -16,8 +16,11 @@ author = "-"
 extensions = [
     "sphinx.ext.duration",
     "autoapi.extension",  # autogenerate varitop docs
-    "myst_parser",  # markdown support
+    "myst_parser",  # markdown support,
+    "sphinxcontrib.bibtex",  # citations
 ]
+
+bibtex_bibfiles = ["autobib.bib"]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
