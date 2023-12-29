@@ -1,7 +1,7 @@
-Math Background
+Mathematics
 ===============
 
 .. toctree:: 
-    :maxdepth: 1
+    :maxdepth: 2
 
     00_variational_integrators

@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Markdown Support" href="../markdown.html" /><link rel="prev" title="Math Background" href="math.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Markdown Support" href="../markdown.html" /><link rel="prev" title="Mathematics" href="math.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
         <title>Variational Integrators - VarItOp documentation</title>
@@ -159,7 +159,7 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../docs.html">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../examples.html">Examples</a></li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="math.html">Math Background</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Math Background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="math.html">Mathematics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Mathematics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Variational Integrators</a></li>
 </ul>
 </li>
@@ -320,12 +320,92 @@ Consequently, it can preserve system energy, momentum in a long term run.</p>
 </section>
 <section id="constrained-dynamics">
 <h2>Constrained Dynamics<a class="headerlink" href="#constrained-dynamics" title="Permalink to this heading">#</a></h2>
+<section id="straightforward-approach">
+<h3>Straightforward Approach<a class="headerlink" href="#straightforward-approach" title="Permalink to this heading">#</a></h3>
+<p>We can extend action, incorporating constraints via Lagrange multipliers:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}S = \int_{t_0}^{t_f}(L + \lambda^T\phi(\mathbf{q}))\mathrm{d}t\\\text{s.t. } \phi(\mathbf{q}) = 0\end{aligned}\end{align} \]</div>
+</div>
+<p>Using the very same derivations we can arrive to the following:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+D_2L_d(\mathbf{q}_k, \mathbf{q}_{k + 1}) + D_1L_d(\mathbf{q}_{k + 1}, \mathbf{q}_{k + 2}) + \frac{\delta \phi}{\delta \mathbf{q}_{k+1}}^T(\mathbf{q}_{k+1})\lambda_{k+1} \mathrm{d}t= 0\\
+\phi(\mathbf{q}_{k+2}) = 0
+\end{cases}\end{split}\]</div>
+</div>
+<p>Please note, that it is not necessary to have <span class="math notranslate nohighlight">\(\mathrm{d}t\)</span> term near <span class="math notranslate nohighlight">\(\lambda\)</span>.
+However, for convenience it is better to apply scaling and have properly defined equation.</p>
+</section>
+<section id="augmented-lagrangian">
+<h3>Augmented Lagrangian<a class="headerlink" href="#augmented-lagrangian" title="Permalink to this heading">#</a></h3>
+<p>We can notice, that if we define augmented lagrangian to be:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[L_{\text{aug}}(\mathbf{q}_k, \mathbf{q}_{k+1}, \Delta t) = L(\frac{\mathbf{q}_{k + 1} + \mathbf{q}_{k}}{2}, \frac{\mathbf{q}_{k + 1} - \mathbf{q}_k}{\Delta t}, \frac{t_{k + 1} + t_k}{2}) \Delta t + \phi(\mathbf{q}_{k})\lambda_{k}\Delta t\]</div>
+</div>
+<p>Then taking slot derivatives as previously will yield the following result:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+D_2L_{\text{aug}}(\mathbf{q}_{k}, \mathbf{q}_{k+1}) &amp;= D_2L_d(\mathbf{q}_{k}, \mathbf{q}_{k+1})\\
+D_1L_{\text{aug}}(\mathbf{q}_{k + 1}, \mathbf{q}_{k+2}) &amp;= D_1L_d(\mathbf{q}_{k + 1}, \mathbf{q}_{k + 2}) + \nabla\phi^T(\mathbf{q}_{k+1})\lambda_{k+1} \mathrm{d}t= 0
+\end{align}\end{split}\]</div>
+</div>
+<p>Consequently, we can conveniently rewrite equations in the following form:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+D_2L_{\text{aug}}(\textbf{q}_{k}, \textbf{q}_{k+1}) + D_1L_{\text{aug}}(\textbf{q}_{k+1}, \textbf{q}_{k+2}) = 0\\
+\phi(\textbf{q}_{k+2}) = 0
+\end{cases}\end{split}\]</div>
+</div>
+</section>
 </section>
 <section id="external-forcing">
 <h2>External Forcing<a class="headerlink" href="#external-forcing" title="Permalink to this heading">#</a></h2>
+<p>To include external forcing we might want to use slightly different method as a base.
+In particular, Lagrange-D’Alembert principle:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\delta\int_{t_1}^{t_2}L(\mathbf{q}, \dot{\mathbf{q}}, t)\mathrm{d}t + \int_{t_1}^{t_2}Q\delta\mathbf{q}\mathrm{d}t = 0\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(Q\)</span> represents generalized forces. Further we would need to define discrete forcing.
+Consider left (<span class="math notranslate nohighlight">\(F_d^-\)</span>) and right (<span class="math notranslate nohighlight">\(F_d^+\)</span>) forces to satisfy the following:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[F_d^-(\mathbf{q}_k, \mathbf{q}_{k+1})\delta\mathbf{q}_k + F_d^+(\mathbf{q}_{k}, \mathbf{q}_{k+1})\delta{q}_{k+1} \approx \int_{t_k}^{t_{k+1}}F(\mathbf{q}, \dot{\mathbf{q}})\delta\mathbf{q}\mathrm{d}t\]</div>
+</div>
+<p>With <span class="math notranslate nohighlight">\(\mathbf{q}, \dot{\mathbf{q}}\)</span> defined using some midpoint rule, for instance, Euler rule.</p>
+<p>Consequently, we can derive the following residual:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[D_2L_d(\mathbf{q}_k, \mathbf{q}_{k + 1}) + D_1L_d(\mathbf{q}_{k + 1}, \mathbf{q}_{k + 2}) + F_d^+(\mathbf{q}_{k}, \mathbf{q}_{k+1}) + F_d^-(\mathbf{q}_{k+1}, \mathbf{q}_{k+2})= 0\]</div>
+</div>
 </section>
 <section id="discrete-euler-lagrange-in-momentum-form">
 <h2>Discrete Euler-Lagrange in Momentum Form<a class="headerlink" href="#discrete-euler-lagrange-in-momentum-form" title="Permalink to this heading">#</a></h2>
+<p>Finally, let’s define residual in momentum form. For this we will need recall
+that <span class="math notranslate nohighlight">\(L(\mathbf{q}, \dot{\mathbf{q}}, t)\)</span> (Lagrangian) and <span class="math notranslate nohighlight">\(H(\mathbf{q}, \mathbf{p}, t)\)</span> (Hamiltonian) are Legendre transforms
+of each other. With <span class="math notranslate nohighlight">\(\mathbf{q}, t\)</span> passive variables.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathbf{p} = \nabla_{\dot{\mathbf{q}}}L(\mathbf{q}, \dot{\mathbf{q}}, t)\\\dot{\mathbf{q}} = \nabla_{\mathbf{p}}H(\mathbf{q}, \mathbf{p}, t)\end{aligned}\end{align} \]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> is generalized momentum and <span class="math notranslate nohighlight">\(H\)</span> is Hamiltonian.
+Legendre transform follows from their definitions. With some
+assumptions we can derive that:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathbf{p}_{k} = D_2L_d(\mathbf{q}_{k-1}, \mathbf{q}_{k}) = -D_1L_d(\mathbf{q}_{k}, \mathbf{q}_{k+1})\]</div>
+</div>
+<p>This way we can initialise our system knowing only the single state. Solving residual w.r.t. <span class="math notranslate nohighlight">\(\mathbf{q}_{k+1}\)</span>
+gives the next state and allows to calculate the next momentum.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[(\mathbf{q}_k, \mathbf{p}_k) \rightarrow (\mathbf{q}_{k+1}, \mathbf{p}_{k+1}) \rightarrow \ldots\]</div>
+</div>
 </section>
 </section>
 
@@ -350,7 +430,7 @@ Consequently, it can preserve system energy, momentum in a long term run.</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Math Background</div>
+                <div class="title">Mathematics</div>
                 
               </div>
             </a>
@@ -392,7 +472,11 @@ Consequently, it can preserve system energy, momentum in a long term run.</p>
 <li><a class="reference internal" href="#discrete-euler-lagrange-residual">Discrete Euler-Lagrange Residual</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#constrained-dynamics">Constrained Dynamics</a></li>
+<li><a class="reference internal" href="#constrained-dynamics">Constrained Dynamics</a><ul>
+<li><a class="reference internal" href="#straightforward-approach">Straightforward Approach</a></li>
+<li><a class="reference internal" href="#augmented-lagrangian">Augmented Lagrangian</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#external-forcing">External Forcing</a></li>
 <li><a class="reference internal" href="#discrete-euler-lagrange-in-momentum-form">Discrete Euler-Lagrange in Momentum Form</a></li>
 </ul>
