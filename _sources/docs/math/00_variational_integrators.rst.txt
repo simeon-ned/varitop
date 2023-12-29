@@ -191,5 +191,5 @@ gives the next state and allows to calculate the next momentum.
 
 
 References
-==========
+----------
 .. bibliography::
