@@ -161,6 +161,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="math.html">Mathematics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Mathematics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Variational Integrators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../markdown.html">Markdown Support</a></li>
@@ -215,21 +216,17 @@
 <h1>Variational Integrators<a class="headerlink" href="#variational-integrators" title="Permalink to this heading">#</a></h1>
 <section id="general-definitions">
 <h2>General Definitions<a class="headerlink" href="#general-definitions" title="Permalink to this heading">#</a></h2>
-<dl class="field-list simple">
-<dt class="field-odd">Variational Integrator<span class="colon">:</span></dt>
-<dd class="field-odd"><p>VI is a particular example of symplectic integrator.</p>
+<dl class="simple">
+<dt>Variational Integrator <span id="id1">[<a class="reference internal" href="#id32" title="Matthew West. Variational Integrators. PhD thesis, California Institute of Technology, Pasadena, California, May 2004.">Wes04</a>]</span>:</dt><dd><p>VI is a particular example of symplectic integrator.</p>
 </dd>
-<dt class="field-even">Sympeltic Integrator<span class="colon">:</span></dt>
-<dd class="field-even"><p>A special case of geometric integrator, designed for solving Hamilton equations.
+<dt>Sympeltic Integrator:</dt><dd><p>A special case of geometric integrator, designed for solving Hamilton equations.
 Since time evolution of Hamilton equations is symplectomorphism, integrator
 preserves physical properties of the system (flow of differential equation).
 Consequently, it can preserve system energy, momentum in a long term run.</p>
 </dd>
-<dt class="field-odd">Hamilton equations<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\dot{p} = \frac{\partial H}{\partial q}\)</span> and <span class="math notranslate nohighlight">\(\dot{q} = \frac{\partial H}{\partial p}\)</span></p>
+<dt>Hamilton equations:</dt><dd><p><span class="math notranslate nohighlight">\(\dot{p} = \frac{\partial H}{\partial q}\)</span> and <span class="math notranslate nohighlight">\(\dot{q} = \frac{\partial H}{\partial p}\)</span></p>
 </dd>
-<dt class="field-even">Symplectomorphism<span class="colon">:</span></dt>
-<dd class="field-even"><p>Process which conserves 2-form, for instance, <span class="math notranslate nohighlight">\(\mathrm{d}q \wedge \mathrm{d}p\)</span></p>
+<dt>Symplectomorphism:</dt><dd><p>Process which conserves 2-form, for instance, <span class="math notranslate nohighlight">\(\mathrm{d}q \wedge \mathrm{d}p\)</span></p>
 </dd>
 </dl>
 </section>
@@ -408,6 +405,17 @@ gives the next state and allows to calculate the next momentum.</p>
 </div>
 </section>
 </section>
+<section id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h1>
+<div class="docutils container" id="id2">
+<div role="list" class="citation-list">
+<div class="citation" id="id32" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Wes04</a><span class="fn-bracket">]</span></span>
+<p>Matthew West. <em>Variational Integrators</em>. PhD thesis, California Institute of Technology, Pasadena, California, May 2004.</p>
+</div>
+</div>
+</div>
+</section>
 
         </article>
       </div>
@@ -481,6 +489,7 @@ gives the next state and allows to calculate the next momentum.</p>
 <li><a class="reference internal" href="#discrete-euler-lagrange-in-momentum-form">Discrete Euler-Lagrange in Momentum Form</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 
           </div>

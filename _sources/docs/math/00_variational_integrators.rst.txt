@@ -4,19 +4,19 @@ Variational Integrators
 General Definitions
 -------------------
 
-:Variational Integrator:
+Variational Integrator :cite:p:`matthewwestVariationalIntegrators2004`:
     VI is a particular example of symplectic integrator.
 
-:Sympeltic Integrator:
+Sympeltic Integrator:
     A special case of geometric integrator, designed for solving Hamilton equations. 
     Since time evolution of Hamilton equations is symplectomorphism, integrator
     preserves physical properties of the system (flow of differential equation).
     Consequently, it can preserve system energy, momentum in a long term run.
 
-:Hamilton equations:
+Hamilton equations:
     :math:`\dot{p} = \frac{\partial H}{\partial q}` and :math:`\dot{q} = \frac{\partial H}{\partial p}`
 
-:Symplectomorphism:
+Symplectomorphism:
     Process which conserves 2-form, for instance, :math:`\mathrm{d}q \wedge \mathrm{d}p`
 
 Derivation
@@ -188,3 +188,8 @@ gives the next state and allows to calculate the next momentum.
 
 .. math:: 
     (\mathbf{q}_k, \mathbf{p}_k) \rightarrow (\mathbf{q}_{k+1}, \mathbf{p}_{k+1}) \rightarrow \ldots
+
+
+References
+==========
+.. bibliography::
