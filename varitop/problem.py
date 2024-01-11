@@ -17,45 +17,7 @@ class VaritopProblem:
         self._nv: int = None
         self._nu: int = None
 
-        self._rule: cs.Function = None
-        self._dynamics_constraints: List[cs.Function] = []
-        self._forces: List[cs.Function] = []
-        self._dynamics: cs.Function = None
         self._integrator: VariationalIntegrator = None
-        self._free: bool = False
-
-    @property
-    def free(self) -> bool:
-        """Determines if body is free-floating"""
-        return self._free
-
-    @free.setter
-    def free(self, free: bool):
-        self._free = free
-
-        if self._integrator is not None:
-            self.integrator.free = free
-
-    @property
-    def rule(self) -> cs.Function:
-        """Midpoint rule"""
-        return self._rule
-
-    @rule.setter
-    def rule(self, rule: cs.Function):
-        self._rule = rule
-
-        if self._integrator is not None:
-            self._integrator.rule = rule
-
-    @property
-    def dynamics(self) -> cs.Function:
-        """System dynamics"""
-        return self._dynamics
-
-    @dynamics.setter
-    def dynamics(self, dynamics: cs.Function):
-        self._dynamics = dynamics
 
     @property
     def integrator(self) -> VariationalIntegrator:
@@ -64,37 +26,7 @@ class VaritopProblem:
 
     @integrator.setter
     def integrator(self, integrator: VariationalIntegrator):
-        if self.nq is None:
-            raise RuntimeError("Number of generalized coordinates not set.")
-
-        if self.dynamics is None:
-            raise RuntimeError("Dynamics not set.")
-
-        if self.rule is None:
-            raise RuntimeError("Rule not set.")
-
-        self._integrator = integrator()
-        self._integrator.nq = self.nq
-        self._integrator.nu = self.nu
-        self._integrator.lagrangian = self.dynamics
-        self._integrator.rule = self.rule
-        self._integrator.free = self.free
-        self._integrator.add_dynamics_constraints(self._dynamics_constraints)
-        self._integrator.add_generalized_forces(self._forces)
-
-    def add_dynamics_constraints(self, constraints: List[cs.Function]):
-        """Add coonstraint for constrained dynamics model"""
-        self._dynamics_constraints.extend(constraints)
-
-        if self._integrator is not None:
-            self._integrator.add_dynamics_constraints(constraints)
-
-    def add_forces(self, forces: List[cs.Function]):
-        """Add external forces"""
-        self._forces.extend(forces)
-
-        if self._integrator is not None:
-            self._integrator.add_generalized_forces(forces)
+        self._integrator = integrator
 
     @property
     def nodes(self) -> int:
