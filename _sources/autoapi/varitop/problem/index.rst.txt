@@ -27,24 +27,6 @@ Classes
 
    Variational Optimization Problem
 
-   .. py:property:: free
-      :type: bool
-
-      Determines if body is free-floating
-
-
-   .. py:property:: rule
-      :type: casadi.Function
-
-      Midpoint rule
-
-
-   .. py:property:: dynamics
-      :type: casadi.Function
-
-      System dynamics
-
-
    .. py:property:: integrator
       :type: varitop.integrator.VariationalIntegrator
 
@@ -91,16 +73,6 @@ Classes
       :type: varitop.variables.Variable
 
       System control (projected)
-
-
-   .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
-
-      Add coonstraint for constrained dynamics model
-
-
-   .. py:method:: add_forces(forces: List[casadi.Function])
-
-      Add external forces
 
 
    .. py:method:: create_variable(variable: type[varitop.variables.Variable], name: str, dim: int, active: list[int] = None) -> varitop.variables.Variable

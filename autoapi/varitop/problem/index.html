@@ -232,24 +232,6 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">VaritopProblem</span></span><a class="headerlink" href="#varitop.problem.VaritopProblem" title="Permalink to this definition">#</a></dt>
 <dd><p>Variational Optimization Problem</p>
 <dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.free">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.free" title="Permalink to this definition">#</a></dt>
-<dd><p>Determines if body is free-floating</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.rule">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.rule" title="Permalink to this definition">#</a></dt>
-<dd><p>Midpoint rule</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.dynamics">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dynamics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VaritopProblem.dynamics" title="Permalink to this definition">#</a></dt>
-<dd><p>System dynamics</p>
-</dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.integrator">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">integrator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../integrator/index.html#varitop.integrator.VariationalIntegrator" title="varitop.integrator.VariationalIntegrator"><span class="pre">varitop.integrator.VariationalIntegrator</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.integrator" title="Permalink to this definition">#</a></dt>
 <dd><p>Problem integrator</p>
@@ -295,18 +277,6 @@
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.control">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.control" title="Permalink to this definition">#</a></dt>
 <dd><p>System control (projected)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.add_dynamics_constraints">
-<span class="sig-name descname"><span class="pre">add_dynamics_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VaritopProblem.add_dynamics_constraints" title="Permalink to this definition">#</a></dt>
-<dd><p>Add coonstraint for constrained dynamics model</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.add_forces">
-<span class="sig-name descname"><span class="pre">add_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VaritopProblem.add_forces" title="Permalink to this definition">#</a></dt>
-<dd><p>Add external forces</p>
 </dd></dl>
 
 <dl class="py method">
@@ -414,9 +384,6 @@
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem"><code class="docutils literal notranslate"><span class="pre">VaritopProblem</span></code></a><ul>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.free"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.free</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.rule"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.rule</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.dynamics"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.dynamics</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.integrator"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.integrator</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nodes"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nodes</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nq"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nq</span></code></a></li>
@@ -425,8 +392,6 @@
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.state"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.state</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.velocity"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.velocity</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.control"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.control</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.add_dynamics_constraints"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.add_dynamics_constraints()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.add_forces"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.add_forces()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_variable"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_variable()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_state"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_state()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_velocity"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_velocity()</span></code></a></li>
