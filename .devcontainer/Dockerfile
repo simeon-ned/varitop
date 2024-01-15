@@ -1,4 +1,5 @@
-FROM mambaorg/micromamba:1.5.3
+FROM --platform=linux/amd64 mambaorg/micromamba:1.5.3
+
 
 USER root
 # ffmpeg - to run mujoco renderer
