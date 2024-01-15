@@ -8,7 +8,7 @@ No versioning for now
     - ☑ Constrained Dynamics
     - ☑ Forced Dynamics*
 
-            See [issue](https://github.com/simeon-ned/varitop/issues/1)
+            See `issue <https://github.com/simeon-ned/varitop/issues/1>`_
     - ☐ URDF Support
     
             For now using existing wrapper is enough (e.g. DARLi)
