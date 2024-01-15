@@ -12,6 +12,8 @@ No versioning for now
     - ☐ URDF Support
     
             For now using existing wrapper is enough (e.g. DARLi)
-- ☐ Trajectory optimization \\ Basically wrap cs.Opti for now
+- ☐ Trajectory optimization 
+        
+        Basically wrap cs.Opti for now
 - ☐ Linearization Based Control
 - ☐ Parametric Integrators
