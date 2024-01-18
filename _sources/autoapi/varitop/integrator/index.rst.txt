@@ -29,10 +29,16 @@ Classes
 
    Abstract variational integrator class
 
-   .. py:property:: free
-      :type: bool
+   .. py:property:: quaternion_index
+      :type: int or None
 
-      Determines if body is free-floating
+      Index of quaternion in generalized coordinates
+
+
+   .. py:property:: model
+      :type: varitop.model.Model
+
+      Model
 
 
    .. py:property:: lagrangian
@@ -57,6 +63,28 @@ Classes
       :type: int
 
       Number of controls
+
+
+   .. py:method:: v(q: casadi.SX, dq: casadi.SX) -> casadi.SX
+
+
+   .. py:method:: q2w(quat: casadi.SX, quat_dot: casadi.SX) -> casadi.SX
+
+      Angular velocity from quaternion and its derivative
+
+      :math:`\omega = 2 L(\bar{q}) \dot{q}`
+
+      :param quat: quaternion
+      :type quat: casadi.SX
+      :param quat_dot: quaternion derivative
+      :type quat_dot: casadi.SX
+      :return: angular velocity 4x1
+      :rtype: casadi.SX
+
+
+   .. py:method:: create_data()
+
+      Create data for the model
 
 
    .. py:method:: _discrete_lagrangian() -> casadi.Function
@@ -88,13 +116,13 @@ Classes
 
    .. py:method:: _append_generalized_force(force: casadi.Function)
 
-      Compose a generalized force
+      Compose a force, acting on a body
 
-      :param force: force to generalize and add
+      :param force: force to add (required to be in the state-space)
       :type force: casadi.Function
 
 
-   .. py:method:: add_forces(forces: List[casadi.Function])
+   .. py:method:: add_generalized_forces(forces: List[casadi.Function])
 
       Wrapper for forces lists
 
@@ -136,7 +164,7 @@ Classes
       Reformulate residual to match rootfinder signature
 
 
-   .. py:method:: step(q0: numpy.ndarray, q1: numpy.ndarray, dt: float, u: numpy.ndarray) -> numpy.ndarray
+   .. py:method:: step(q0: numpy.ndarray, q1: numpy.ndarray, dt: float, u: numpy.ndarray = None) -> numpy.ndarray
 
       :param q0: :math:`q_{k-1}`
       :type q0: np.ndarray

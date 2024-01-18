@@ -29,9 +29,9 @@ Functions
 
    Quaternion to rotation matrix
 
-   :param q: quaternion
+   :param q: row quaternion or list of row quaternions
    :type q: np.ndarray
-   :return: rotation matrix
+   :return: rotation matrix / matrices
    :rtype: np.ndarray
 
 

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="varitop.model" href="../model/index.html" /><link rel="prev" title="varitop.integrator" href="../integrator/index.html" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="varitop.problem" href="../problem/index.html" /><link rel="prev" title="varitop.misc" href="../misc/index.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>varitop.misc - VarItOp documentation</title>
+        <title>varitop.model - VarItOp documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -171,8 +171,8 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../integrator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../problem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../variables/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.variables</span></code></a></li>
 </ul>
@@ -213,101 +213,68 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-varitop.misc">
-<span id="varitop-misc"></span><h1><a class="reference internal" href="#module-varitop.misc" title="varitop.misc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a><a class="headerlink" href="#module-varitop.misc" title="Permalink to this heading">#</a></h1>
-<p>Module utility functions</p>
+          <section id="module-varitop.model">
+<span id="varitop-model"></span><h1><a class="reference internal" href="#module-varitop.model" title="varitop.model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a><a class="headerlink" href="#module-varitop.model" title="Permalink to this heading">#</a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
-<section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h3>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.q2rm" title="varitop.misc.q2rm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">q2rm</span></code></a>(→ numpy.ndarray)</p></td>
-<td><p>Quaternion to rotation matrix</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.model.Model" title="varitop.model.Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.skew_quaternion" title="varitop.misc.skew_quaternion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skew_quaternion</span></code></a>(→ casadi.SX)</p></td>
-<td><p>Skew symmetric quaternion matrix</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.qconj" title="varitop.misc.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(→ casadi.SX)</p></td>
-<td><p>Quaternion conjugate</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.euler_rule" title="varitop.misc.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(→ [casadi.SX, casadi.SX])</p></td>
-<td><p>Euler midpoint rule for integration</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.model.DarliModel" title="varitop.model.DarliModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DarliModel</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<dl class="py function">
-<dt class="sig sig-object py" id="varitop.misc.q2rm">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">q2rm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#varitop.misc.q2rm" title="Permalink to this definition">#</a></dt>
-<dd><p>Quaternion to rotation matrix</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>q</strong> (<em>np.ndarray</em>) – row quaternion or list of row quaternions</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>rotation matrix / matrices</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.model.Model">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.model.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">urdf_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.model.Model" title="Permalink to this definition">#</a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="varitop.model.Model.nq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.model.Model.nq" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.model.Model.nv">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.model.Model.nv" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.model.Model.nu">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.model.Model.nu" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.model.Model.lagrangian">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.model.Model.lagrangian" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="varitop.model.Model.valid_backends">
+<span class="sig-name descname"><span class="pre">valid_backends</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['darli']</span></em><a class="headerlink" href="#varitop.model.Model.valid_backends" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.model.Model.create_data">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.model.Model.create_data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="varitop.misc.skew_quaternion">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">skew_quaternion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.misc.skew_quaternion" title="Permalink to this definition">#</a></dt>
-<dd><p>Skew symmetric quaternion matrix</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>q1</strong> (<em>casadi.SX</em>) – quaternion to make matrix from</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>L(q)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>casadi.SX</p>
-</dd>
-</dl>
-</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.model.DarliModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.model.</span></span><span class="sig-name descname"><span class="pre">DarliModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">urdf_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.model.DarliModel" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#varitop.model.Model" title="varitop.model.Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.model.DarliModel.create_data">
+<span class="sig-name descname"><span class="pre">create_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.model.DarliModel.create_data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="varitop.misc.qconj">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">qconj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.misc.qconj" title="Permalink to this definition">#</a></dt>
-<dd><p>Quaternion conjugate</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>q</strong> (<em>casadi.SX</em>) – quaternion to conjugate</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>q*</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>casadi.SX</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="varitop.misc.euler_rule">
-<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">euler_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="pre">casadi.SX</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">casadi.SX</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#varitop.misc.euler_rule" title="Permalink to this definition">#</a></dt>
-<dd><p>Euler midpoint rule for integration</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q1</strong> (<em>casadi.SX</em>) – first state</p></li>
-<li><p><strong>q2</strong> (<em>casadi.SX</em>) – second state</p></li>
-<li><p><strong>dt</strong> (<em>casadi.SX</em>) – time step</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>q, dq</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[casadi.SX, casadi.SX]</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -319,23 +286,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../model/index.html">
+          <a class="next-page" href="../problem/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../integrator/index.html">
+          <a class="prev-page" href="../misc/index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></div>
                 
               </div>
             </a>
@@ -369,13 +336,22 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#functions">Functions</a><ul>
-<li><a class="reference internal" href="#varitop.misc.q2rm"><code class="docutils literal notranslate"><span class="pre">q2rm()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.misc.skew_quaternion"><code class="docutils literal notranslate"><span class="pre">skew_quaternion()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.misc.qconj"><code class="docutils literal notranslate"><span class="pre">qconj()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.misc.euler_rule"><code class="docutils literal notranslate"><span class="pre">euler_rule()</span></code></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#varitop.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.model.Model.nq"><code class="docutils literal notranslate"><span class="pre">Model.nq</span></code></a></li>
+<li><a class="reference internal" href="#varitop.model.Model.nv"><code class="docutils literal notranslate"><span class="pre">Model.nv</span></code></a></li>
+<li><a class="reference internal" href="#varitop.model.Model.nu"><code class="docutils literal notranslate"><span class="pre">Model.nu</span></code></a></li>
+<li><a class="reference internal" href="#varitop.model.Model.lagrangian"><code class="docutils literal notranslate"><span class="pre">Model.lagrangian</span></code></a></li>
+<li><a class="reference internal" href="#varitop.model.Model.valid_backends"><code class="docutils literal notranslate"><span class="pre">Model.valid_backends</span></code></a></li>
+<li><a class="reference internal" href="#varitop.model.Model.create_data"><code class="docutils literal notranslate"><span class="pre">Model.create_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#varitop.model.DarliModel"><code class="docutils literal notranslate"><span class="pre">DarliModel</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.model.DarliModel.create_data"><code class="docutils literal notranslate"><span class="pre">DarliModel.create_data()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

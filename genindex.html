@@ -170,6 +170,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/varitop/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/varitop/integrator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/varitop/misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/varitop/model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/varitop/problem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/varitop/variables/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.variables</span></code></a></li>
 </ul>
@@ -212,7 +213,7 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#Q"><strong>Q</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#V"><strong>V</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#Q"><strong>Q</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#V"><strong>V</strong></a></div>
 </section>
 <section id="_" class="genindex-section">
   <h2>_</h2>
@@ -240,7 +241,7 @@
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.add_forces">add_forces() (varitop.integrator.VariationalIntegrator method)</a>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.add_generalized_forces">add_generalized_forces() (varitop.integrator.VariationalIntegrator method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -256,6 +257,14 @@
 </li>
         <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.create_control">create_control() (varitop.problem.VaritopProblem method)</a>
 </li>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.create_data">create_data() (varitop.integrator.VariationalIntegrator method)</a>
+
+        <ul>
+          <li><a href="autoapi/varitop/model/index.html#varitop.model.DarliModel.create_data">(varitop.model.DarliModel method)</a>
+</li>
+          <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.create_data">(varitop.model.Model method)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.create_momentum">create_momentum() (varitop.problem.VaritopProblem method)</a>
@@ -274,10 +283,12 @@
   <h2>D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.DelIntegrator">DelIntegrator (class in varitop.integrator)</a>
+        <li><a href="autoapi/varitop/model/index.html#varitop.model.DarliModel">DarliModel (class in varitop.model)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.DelIntegrator">DelIntegrator (class in varitop.integrator)</a>
+</li>
         <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.DelmIntegrator">DelmIntegrator (class in varitop.integrator)</a>
 </li>
     </ul></td>
@@ -289,16 +300,6 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/varitop/misc/index.html#varitop.misc.euler_rule">euler_rule() (in module varitop.misc)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="F" class="genindex-section">
-  <h2>F</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.free">free (varitop.integrator.VariationalIntegrator property)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -341,7 +342,11 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.lagrangian">lagrangian (varitop.integrator.VariationalIntegrator property)</a>
+
+        <ul>
+          <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.lagrangian">(varitop.model.Model property)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -350,6 +355,10 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="autoapi/varitop/model/index.html#varitop.model.Model">Model (class in varitop.model)</a>
+</li>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.model">model (varitop.integrator.VariationalIntegrator property)</a>
+</li>
         <li>
     module
 
@@ -359,6 +368,8 @@
           <li><a href="autoapi/varitop/integrator/index.html#module-varitop.integrator">varitop.integrator</a>
 </li>
           <li><a href="autoapi/varitop/misc/index.html#module-varitop.misc">varitop.misc</a>
+</li>
+          <li><a href="autoapi/varitop/model/index.html#module-varitop.model">varitop.model</a>
 </li>
           <li><a href="autoapi/varitop/problem/index.html#module-varitop.problem">varitop.problem</a>
 </li>
@@ -382,6 +393,8 @@
         <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.nq">nq (varitop.integrator.VariationalIntegrator property)</a>
 
         <ul>
+          <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.nq">(varitop.model.Model property)</a>
+</li>
           <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.nq">(varitop.problem.VaritopProblem property)</a>
 </li>
         </ul></li>
@@ -390,11 +403,17 @@
         <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.nu">nu (varitop.integrator.VariationalIntegrator property)</a>
 
         <ul>
+          <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.nu">(varitop.model.Model property)</a>
+</li>
           <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.nu">(varitop.problem.VaritopProblem property)</a>
 </li>
         </ul></li>
-        <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.nv">nv (varitop.problem.VaritopProblem property)</a>
+        <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.nv">nv (varitop.model.Model property)</a>
+
+        <ul>
+          <li><a href="autoapi/varitop/problem/index.html#varitop.problem.VaritopProblem.nv">(varitop.problem.VaritopProblem property)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -405,9 +424,13 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/varitop/misc/index.html#varitop.misc.q2rm">q2rm() (in module varitop.misc)</a>
 </li>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.q2w">q2w() (varitop.integrator.VariationalIntegrator method)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/varitop/misc/index.html#varitop.misc.qconj">qconj() (in module varitop.misc)</a>
+</li>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.quaternion_index">quaternion_index (varitop.integrator.VariationalIntegrator property)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -453,6 +476,10 @@
   <h2>V</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="autoapi/varitop/integrator/index.html#varitop.integrator.VariationalIntegrator.v">v() (varitop.integrator.VariationalIntegrator method)</a>
+</li>
+        <li><a href="autoapi/varitop/model/index.html#varitop.model.Model.valid_backends">valid_backends (varitop.model.Model attribute)</a>
+</li>
         <li><a href="autoapi/varitop/variables/index.html#varitop.variables.Variable.var">var (varitop.variables.Variable property)</a>
 </li>
         <li><a href="autoapi/varitop/variables/index.html#varitop.variables.Variable">Variable (class in varitop.variables)</a>
@@ -482,6 +509,13 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    varitop.model
+
+        <ul>
+          <li><a href="autoapi/varitop/model/index.html#module-varitop.model">module</a>
+</li>
+        </ul></li>
         <li>
     varitop.problem
 
