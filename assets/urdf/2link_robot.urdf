@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="two_link_robot">
+
+	<!-- Define the world link as the root -->
+	<link name="world" />
+
+	<!-- Link 1 -->
+	<link name="link1">
+		<!-- Visual and Collision geometries -->
+		<visual>
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<geometry>
+				<box size="0.2 0.2 1" />
+
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<geometry>
+				<box size="0.2 0.2 1" />
+
+			</geometry>
+		</collision>
+		<!-- Inertial parameters -->
+		<inertial>
+			<mass value="1.0" />
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.083" iyz="0.0" izz="0.01" />
+		</inertial>
+	</link>
+
+	<!-- Link 2 -->
+	<link name="link2">
+		<!-- Visual and Collision geometries -->
+		<visual>
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<geometry>
+				<box size="0.2 0.2 1" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<geometry>
+				<box size="0.2 0.2 1" />
+			</geometry>
+		</collision>
+		<!-- Inertial parameters -->
+		<inertial>
+			<mass value="1.0" />
+			<origin xyz="0 0 -0.5" rpy="0 0 0 " />
+			<inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.083" iyz="0.0" izz="0.01" />
+		</inertial>
+	</link>
+
+	<!-- Joint 1 -->
+	<joint name="joint1" type="revolute">
+		<parent link="world" />
+		<child link="link1" />
+		<!-- Rotate the joint axis to align with the Z-axis (gravity direction) -->
+		<origin rpy="0 0 0" xyz="0 0 2" />
+		<axis xyz="0 1 0" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="1.57" />
+	</joint>
+
+	<!-- Joint 2 -->
+	<joint name="joint2" type="revolute">
+		<parent link="link1" />
+		<child link="link2" />
+		<!-- Rotate the joint axis to align with the Z-axis (gravity direction) -->
+		<origin rpy="0 0 0" xyz="0 0 -1" />
+		<axis xyz="0 1 0" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="1.57" />
+	</joint>
+
+</robot>
