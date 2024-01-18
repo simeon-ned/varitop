@@ -19,4 +19,4 @@ No versioning for now
 - ☐ Parametric Integrators
         - ☐ Custom URDF Parser
 
-        Having other parsers is not reliable and not flexible enough.
+                Having other parsers is not reliable and not flexible enough.
