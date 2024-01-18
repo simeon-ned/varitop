@@ -18,20 +18,12 @@ class VariationalIntegrator:
         self._forced: bool = False
         self._dynamics_constraint: cs.Function = None
         self._generalized_force: cs.Function = None
-        self._free: bool = False
-
-    @property
-    def free(self) -> bool:
-        """Determines if body is free-floating"""
-        return self._free
-
-    @free.setter
-    def free(self, free: bool):
-        self._free = free
 
     @property
     def lagrangian(self) -> cs.Function:
         """System's continuous lagrangian"""
+        if self._lagrangian is None:
+            raise RuntimeError("Continuous Lagrangian not set.")
         return self._lagrangian
 
     @lagrangian.setter
@@ -41,6 +33,8 @@ class VariationalIntegrator:
     @property
     def rule(self) -> cs.Function:
         """Midpoint rule"""
+        if self._rule is None:
+            raise RuntimeError("Approximation rule not set.")
         return self._rule
 
     @rule.setter
@@ -50,6 +44,8 @@ class VariationalIntegrator:
     @property
     def nq(self) -> int:
         """Number of generalized coordinates"""
+        if self._nq is None:
+            raise RuntimeError("Number of generalized coordinates not set.")
         return self._nq
 
     @nq.setter
@@ -59,6 +55,8 @@ class VariationalIntegrator:
     @property
     def nu(self) -> int:
         """Number of controls"""
+        if self._nu is None:
+            raise RuntimeError("Number of controls not set.")
         return self._nu
 
     @nu.setter
@@ -123,36 +121,30 @@ class VariationalIntegrator:
         raise NotImplementedError
 
     def _append_generalized_force(self, force: cs.Function):
-        """Compose a generalized force
+        """Compose a force, acting on a body
 
-        :param force: force to generalize and add
+        :param force: force to add (required to be in the state-space)
         :type force: casadi.Function"""
         self._forced = True
-        if self.free:
-            # Fd = 2qF
-            q0 = cs.SX.sym("q", self.nq)
-            dq = cs.SX.sym("dq", self.nq)
-            u = cs.SX.sym("u", self.nu)
-            lq = skew_quaternion(q0)
 
-            nf = lq @ force(q0, dq, u)
-            pf = (
-                0
-                if self._generalized_force is None
-                else self._generalized_force(q0, dq, u)
-            )
+        q0 = cs.SX.sym("q", self.nq)
+        dq = cs.SX.sym("dq", self.nq)
+        u = cs.SX.sym("u", self.nu)
 
-            self._generalized_force = cs.Function(
-                "F",
-                [q0, dq, u],
-                [pf + nf],
-                ["q", "dq", "u"],
-                ["F"],
-            )
-        else:
-            raise NotImplementedError
+        new_force = force(q0, dq, u)
+        current_force = (
+            0 if self._generalized_force is None else self._generalized_force(q0, dq, u)
+        )
 
-    def add_forces(self, forces: List[cs.Function]):
+        self._generalized_force = cs.Function(
+            "F",
+            [q0, dq, u],
+            [current_force + new_force],
+            ["q", "dq", "u"],
+            ["F"],
+        )
+
+    def add_generalized_forces(self, forces: List[cs.Function]):
         """Wrapper for forces lists
 
         :param forces: A list of forces
@@ -192,15 +184,6 @@ class DelIntegrator(VariationalIntegrator):
 
     def get_residual(self) -> cs.Function:
         """Formulate Discrete Euler-Lagrange residual"""
-
-        if self.lagrangian is None:
-            raise RuntimeError("Continuous Lagrangian not set.")
-
-        if self.rule is None:
-            raise RuntimeError("Approximation rule not set.")
-
-        if self.nq is None:
-            raise RuntimeError("Number of generalized coordinates not set.")
 
         q0 = cs.SX.sym("q0", self.nq)
         q1 = cs.SX.sym("q1", self.nq)
