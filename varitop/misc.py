@@ -7,24 +7,49 @@ import numpy as np
 def q2rm(q: np.ndarray) -> np.ndarray:
     """Quaternion to rotation matrix
 
-    :param q: quaternion
+    :param q: row quaternion or list of row quaternions
     :type q: np.ndarray
-    :return: rotation matrix
+    :return: rotation matrix / matrices
     :rtype: np.ndarray
     """
-    q = np.array(q)
-    q /= np.linalg.norm(q)
-    w, x, y, z = q
 
-    rotation_matrix = np.array(
-        [
-            [1 - 2 * y**2 - 2 * z**2, 2 * x * y - 2 * w * z, 2 * x * z + 2 * w * y],
-            [2 * x * y + 2 * w * z, 1 - 2 * x**2 - 2 * z**2, 2 * y * z - 2 * w * x],
-            [2 * x * z - 2 * w * y, 2 * y * z + 2 * w * x, 1 - 2 * x**2 - 2 * y**2],
-        ]
-    )
+    if q.ndim == 1:
+        q = q[np.newaxis, :]
 
-    return rotation_matrix
+    rm = []
+
+    for qi in q:
+        qi /= np.linalg.norm(qi)
+        w, x, y, z = qi
+
+        rmi = np.array(
+            [
+                [
+                    1 - 2 * y**2 - 2 * z**2,
+                    2 * x * y - 2 * w * z,
+                    2 * x * z + 2 * w * y,
+                ],
+                [
+                    2 * x * y + 2 * w * z,
+                    1 - 2 * x**2 - 2 * z**2,
+                    2 * y * z - 2 * w * x,
+                ],
+                [
+                    2 * x * z - 2 * w * y,
+                    2 * y * z + 2 * w * x,
+                    1 - 2 * x**2 - 2 * y**2,
+                ],
+            ]
+        )
+
+        rm.append(rmi)
+
+    rm = np.array(rm)
+
+    if len(rm) == 1:
+        return rm[0]
+    else:
+        return rm
 
 
 def skew_quaternion(q1: cs.SX) -> cs.SX:
