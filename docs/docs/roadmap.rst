@@ -9,7 +9,7 @@ No versioning for now
     - ☑ Forced Dynamics*
 
             See `issue <https://github.com/simeon-ned/varitop/issues/1>`_
-    - ☐ URDF Support
+    - ☑ URDF Support
     
             For now using existing wrapper is enough (e.g. DARLi)
 - ☐ Trajectory optimization 
@@ -17,3 +17,6 @@ No versioning for now
         Basically wrap cs.Opti for now
 - ☐ Linearization Based Control
 - ☐ Parametric Integrators
+        - ☐ Custom URDF Parser
+
+        Having other parsers is not reliable and not flexible enough.
