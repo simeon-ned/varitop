@@ -279,10 +279,6 @@ class DelIntegrator(VariationalIntegrator):
         residual = d1ld.T + d2ld.T
 
         if self._forced:
-            # Add external forces
-            # For now only left force is considered
-            # Somehow example with quadrotor diverges
-            # if two forces used simultaneously
             u = cs.SX.sym("u", self.nu)
             arguments1.append(u)
             arguments2.append(u)
@@ -290,10 +286,10 @@ class DelIntegrator(VariationalIntegrator):
             variables.append(u)
             titles.append("u")
 
-            p1 = self.rule(q0, q1, dt)
-            # p2 = self.rule(q1, q2, dt) # No right force
+            p1 = self.rule(q0, q1, dt)  # Left force
+            p2 = self.rule(q1, q2, dt)  # Right force
 
-            residual += f(*p1, u) * dt
+            residual += f(*p1, u) * dt / 2 + f(*p2, u) * dt / 2
 
         # If lagrangian is augmented, we need
         # to add the constraints
