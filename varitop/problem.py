@@ -14,8 +14,16 @@ class VaritopProblem:
         self._variables: Dict[str, Variable] = {}
         self._nodes: int = None
         self._nq: int = None
-        self._nv: int = None
         self._nu: int = None
+
+        self._q: cs.MX = None
+        self._u: cs.MX = None
+
+        self._problem = None
+        self._residuals = None
+        self._constraints = None
+        self._limits = None
+        self._cost = None
 
         self._integrator: VariationalIntegrator = None
 
@@ -45,17 +53,6 @@ class VaritopProblem:
     @nq.setter
     def nq(self, nq: int):
         self._nq = nq
-        self.create_state("q", nq)
-
-    @property
-    def nv(self) -> int:
-        """Number of generalized velocities"""
-        return self._nv
-
-    @nv.setter
-    def nv(self, nv: int):
-        self._nv = nv
-        self.create_velocity("v", nv)
 
     @property
     def nu(self) -> int:
@@ -65,54 +62,140 @@ class VaritopProblem:
     @nu.setter
     def nu(self, nu: int):
         self._nu = nu
-        self.create_control("u", nu)
 
-    def create_variable(
-        self, variable: type[Variable], name: str, dim: int, active: list[int] = None
-    ) -> Variable:
-        """Create a variable
-        
-        :param variable: which variable to create
-        :param name: varaible name
-        :param dim: variable dimensionality
-        :param active: at which nodes variable is active
-        :type variable: type[Variable]
-        :type name: str
-        :type dim: int
-        :type active: list[int]"""
-        if active is None:
-            active = np.ones(self.nodes, dtype=int)
+    def add_intermidiate_cost(self, cost):
+        raise NotImplementedError
 
-        self._variables[variable] = variable(name, dim, active)
-        return self._variables[variable]
+    def add_terminal_cost(self, cost):
+        raise NotImplementedError
 
-    def create_state(self, name: str, dim: int, active: list[int] = None) -> Variable:
-        """Create a state variable"""
-        return self.create_variable(State, name, dim, active)
+    def add_initial_constraint(self, q_init):
+        raise NotImplementedError
 
-    def create_velocity(self, name: str, active: list[int] = None) -> Variable:
-        """Create a velocity variable"""
-        return self.create_variable(Velocity, name, active)
+    def add_intermidiate_constraint(self, expr):
+        raise NotImplementedError
 
-    def create_momentum(self, name: str, active: list[int] = None) -> Variable:
-        """Create a momentum variable"""
-        return self.create_variable(Momentum, name, active)
+    def add_terminal_constraint(self, q_final):
+        raise NotImplementedError
 
-    def create_control(self, name: str, active: list[int] = None) -> Variable:
-        """Create a control variable"""
-        return self.create_variable(Control, name, active)
+    def add_limits(self, lb, expr, ub):
+        raise NotImplementedError
+
+
+class OptiProblem(VaritopProblem):
+    """Optimization through cs.Opti"""
 
     @property
-    def state(self) -> Variable:
-        """System state (projected)"""
-        return self._variables[State]
+    def dt(self):
+        return self._dt
+
+    @dt.setter
+    def dt(self, dt):
+        self._dt = dt
 
     @property
-    def velocity(self) -> Variable:
-        """System velocty (projected)"""
-        return self._variables[Velocity]
+    def residuals(self):
+        if self._residuals is None:
+            self._residuals = []
+
+        return self._residuals
+
+    @residuals.setter
+    def residuals(self, residuals):
+        self._residuals = residuals
+
+    def construct_residuals(self):
+        if self.integrator is None:
+            raise ValueError("Integrator is not set")
+
+        residuals = []
+        q = self.q
+        u = self.u
+        DEL_residual = self.integrator.get_residual()
+
+        for i in range(1, self.nodes - 1):
+            residuals.append(
+                DEL_residual(
+                    q[i - 1, :].T, q[i, :].T, q[i + 1, :].T, self.dt, u[i - 1, :]
+                )
+                == 0
+            )
+
+        self.residuals = residuals
 
     @property
-    def control(self) -> Variable:
-        """System control (projected)"""
-        return self._variables[Control]
+    def cost(self):
+        if self._cost is None:
+            self._cost = 0
+
+        return self._cost
+
+    @cost.setter
+    def cost(self, cost):
+        self._cost = cost
+
+    def add_intermidiate_cost(self, cost):
+        self.cost = self.cost + cost
+
+    def add_terminal_cost(self, cost):
+        self.cost = self.cost + cost
+
+    @property
+    def constraints(self):
+        if self._constraints is None:
+            self._constraints = []
+
+        return self._constraints
+
+    def add_initial_constraint(self, q_init):
+        self.constraints.append(self.q[0, :].T == q_init)
+
+    def add_intermidiate_constraint(self, expr):
+        self.constraints.append(expr)
+
+    def add_terminal_constraint(self, q_final):
+        self.constraints.append(self.q[-1, :].T == q_final)
+
+    @property
+    def limits(self):
+        if self._limits is None:
+            self._limits = []
+
+        return self._limits
+
+    def add_limits(self, lb, expr, ub):
+        self.limits.append(self.problem.bounded(lb, expr, ub))
+
+    @property
+    def problem(self):
+        if self._problem is None:
+            self._problem = cs.Opti()
+
+        return self._problem
+
+    @property
+    def q(self):
+        if self._q is None:
+            self._q = self.problem.variable(self.nodes, self.nq)
+
+        return self._q
+
+    @property
+    def u(self):
+        if self._u is None:
+            self._u = self.problem.variable(self.nodes - 1, self.nu)
+
+        return self._u
+
+    def build(self):
+        self.construct_residuals()
+        for residual in self.residuals:
+            self.problem.subject_to(residual)
+
+        for constraint in self.constraints:
+            self.problem.subject_to(constraint)
+
+        for limit in self.limits:
+            self.problem.subject_to(limit)
+
+        self.problem.minimize(self.cost)
