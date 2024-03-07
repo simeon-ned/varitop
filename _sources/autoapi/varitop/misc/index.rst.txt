@@ -20,6 +20,7 @@ Functions
 
    varitop.misc.q2rm
    varitop.misc.skew_quaternion
+   varitop.misc.quat_prod
    varitop.misc.qconj
    varitop.misc.euler_rule
 
@@ -42,6 +43,18 @@ Functions
    :param q1: quaternion to make matrix from
    :type q1: casadi.SX
    :return: L(q)
+   :rtype: casadi.SX
+
+
+.. py:function:: quat_prod(q1: casadi.SX, q2: casadi.SX) -> casadi.SX
+
+   Quaternion product
+
+   :param q1: first quaternion
+   :param q2: second quaternion
+   :type q1: casadi.SX
+   :type q2: casadi.SX
+   :return: q1 * q2
    :rtype: casadi.SX
 
 

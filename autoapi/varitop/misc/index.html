@@ -229,10 +229,13 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.skew_quaternion" title="varitop.misc.skew_quaternion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skew_quaternion</span></code></a>(→ casadi.SX)</p></td>
 <td><p>Skew symmetric quaternion matrix</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.qconj" title="varitop.misc.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(→ casadi.SX)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.quat_prod" title="varitop.misc.quat_prod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quat_prod</span></code></a>(→ casadi.SX)</p></td>
+<td><p>Quaternion product</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.qconj" title="varitop.misc.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(→ casadi.SX)</p></td>
 <td><p>Quaternion conjugate</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#varitop.misc.euler_rule" title="varitop.misc.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(→ [casadi.SX, casadi.SX])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.misc.euler_rule" title="varitop.misc.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(→ [casadi.SX, casadi.SX])</p></td>
 <td><p>Euler midpoint rule for integration</p></td>
 </tr>
 </tbody>
@@ -265,6 +268,26 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>L(q)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="varitop.misc.quat_prod">
+<span class="sig-prename descclassname"><span class="pre">varitop.misc.</span></span><span class="sig-name descname"><span class="pre">quat_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.misc.quat_prod" title="Permalink to this definition">#</a></dt>
+<dd><p>Quaternion product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>casadi.SX</em>) – first quaternion</p></li>
+<li><p><strong>q2</strong> (<em>casadi.SX</em>) – second quaternion</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q1 * q2</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>casadi.SX</p>
@@ -374,6 +397,7 @@
 <li><a class="reference internal" href="#functions">Functions</a><ul>
 <li><a class="reference internal" href="#varitop.misc.q2rm"><code class="docutils literal notranslate"><span class="pre">q2rm()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.misc.skew_quaternion"><code class="docutils literal notranslate"><span class="pre">skew_quaternion()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.misc.quat_prod"><code class="docutils literal notranslate"><span class="pre">quat_prod()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.misc.qconj"><code class="docutils literal notranslate"><span class="pre">qconj()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.misc.euler_rule"><code class="docutils literal notranslate"><span class="pre">euler_rule()</span></code></a></li>
 </ul>
