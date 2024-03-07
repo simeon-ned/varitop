@@ -29,8 +29,8 @@ Classes
 
    Abstract variational integrator class
 
-   .. py:property:: quaternion_index
-      :type: int or None
+   .. py:property:: free_body
+      :type: bool
 
       Index of quaternion in generalized coordinates
 
