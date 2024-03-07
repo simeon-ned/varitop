@@ -20,7 +20,7 @@ def q2rm(q: np.ndarray) -> np.ndarray:
 
     for qi in q:
         qi /= np.linalg.norm(qi)
-        w, x, y, z = qi
+        x, y, z, w = qi
 
         rmi = np.array(
             [
@@ -60,16 +60,39 @@ def skew_quaternion(q1: cs.SX) -> cs.SX:
     :return: L(q)
     :rtype: casadi.SX"""
 
-    x, y, z, w = q1[1], q1[2], q1[3], q1[0]
+    raise DeprecationWarning("Use quat_prod instead")
 
-    L = cs.vertcat(
-        cs.horzcat(w, -x, -y, -z),
-        cs.horzcat(x, w, z, -y),
-        cs.horzcat(y, -z, w, x),
-        cs.horzcat(z, y, -x, w),
-    )
+    # x, y, z, w = q1[1], q1[2], q1[3], q1[0]
 
-    return L
+    # L = cs.vertcat(
+    #     cs.horzcat(w, -x, -y, -z),
+    #     cs.horzcat(x, w, -z, y),
+    #     cs.horzcat(y, z, w, -x),
+    #     cs.horzcat(z, -y, x, w),
+    # )
+
+    # return L
+
+
+def quat_prod(q1: cs.SX, q2: cs.SX) -> cs.SX:
+    """Quaternion product
+
+    :param q1: first quaternion
+    :param q2: second quaternion
+    :type q1: casadi.SX
+    :type q2: casadi.SX
+    :return: q1 * q2
+    :rtype: casadi.SX"""
+    w1, x1, y1, z1 = q1[3], q1[0], q1[1], q1[2]
+    w2, x2, y2, z2 = q2[3], q2[0], q2[1], q2[2]
+
+    xyz1 = cs.vcat([x1, y1, z1])
+    xyz2 = cs.vcat([x2, y2, z2])
+
+    w = w1 * w2 - cs.dot(xyz1, xyz2)
+    xyz = w1 * xyz2 + w2 * xyz1 + cs.cross(xyz1, xyz2)
+
+    return cs.vertcat(xyz, w)
 
 
 def qconj(q: cs.SX) -> cs.SX:
@@ -79,7 +102,7 @@ def qconj(q: cs.SX) -> cs.SX:
     :type q: casadi.SX
     :return: q*
     :rtype: casadi.SX"""
-    return cs.vcat([q[0], -q[1], -q[2], -q[3]])
+    return cs.vcat([-q[0], -q[1], -q[2], q[3]])
 
 
 def euler_rule(q1: cs.SX, q2: cs.SX, dt: cs.SX) -> [cs.SX, cs.SX]:
