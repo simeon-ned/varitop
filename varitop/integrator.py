@@ -18,30 +18,32 @@ class VariationalIntegrator:
         self._nu: int = None
         self._constrained: bool = False
         self._forced: bool = False
-        self._quaternion_index: int = None
+        self._free_body: bool = (
+            False  # Free body assumes that state is [x, y, z, qvx, qvy, qvz, qs]
+        )
         self._dynamics_constraint: cs.Function = None
         self._generalized_force: cs.Function = None
 
     @property
-    def quaternion_index(self) -> int or None:
+    def free_body(self) -> bool:
         """Index of quaternion in generalized coordinates"""
-        return self._quaternion_index
+        return self._free_body
 
-    @quaternion_index.setter
-    def quaternion_index(self, index: int):
-        self._quaternion_index = index
+    @free_body.setter
+    def free_body(self, free_body: bool):
+        self._free_body = free_body
 
     def v(self, q: cs.SX, dq: cs.SX) -> cs.SX:
-        if self._quaternion_index is None:
+        if not self.free_body:
             return dq
-        else:
-            qi = self._quaternion_index
-            quat = q[qi : qi + 4]
-            quat_dot = dq[qi : qi + 4]
-            w = self.q2w(quat, quat_dot)  # angular velocity
-            w = w[1:]  # imaginary part, scalar should be zero
-            v = cs.vertcat(dq[:qi], w, dq[qi + 4 :])
-            return v
+
+        qi = 3
+        quat = q[qi : qi + 4]
+        quat_dot = dq[qi : qi + 4]
+        w = self.q2w(quat, quat_dot)  # angular velocity
+        w = w[:3]  # imaginary part, scalar should be zero
+        v = cs.vertcat(dq[:qi], w, dq[qi + 4 :])
+        return v
 
     def q2w(self, quat: cs.SX, quat_dot: cs.SX) -> cs.SX:
         """Angular velocity from quaternion and its derivative

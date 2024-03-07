@@ -59,11 +59,14 @@ def skew_quaternion(q1: cs.SX) -> cs.SX:
     :type q1: casadi.SX
     :return: L(q)
     :rtype: casadi.SX"""
+
+    x, y, z, w = q1[1], q1[2], q1[3], q1[0]
+
     L = cs.vertcat(
-        cs.horzcat(q1[0], -q1[1], -q1[2], -q1[3]),
-        cs.horzcat(q1[1], q1[0], -q1[3], q1[2]),
-        cs.horzcat(q1[2], q1[3], q1[0], -q1[1]),
-        cs.horzcat(q1[3], -q1[2], q1[1], q1[0]),
+        cs.horzcat(w, -x, -y, -z),
+        cs.horzcat(x, w, z, -y),
+        cs.horzcat(y, -z, w, x),
+        cs.horzcat(z, y, -x, w),
     )
 
     return L
