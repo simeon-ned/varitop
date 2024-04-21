@@ -2,7 +2,7 @@
 
 from varitop.model import Model
 from typing import List
-from .misc import skew_quaternion, qconj
+from .misc import quat_prod, qconj
 import casadi as cs
 import numpy as np
 
@@ -57,7 +57,7 @@ class VariationalIntegrator:
         :return: angular velocity 4x1
         :rtype: casadi.SX
         """
-        return 2 * skew_quaternion(qconj(quat)) @ quat_dot
+        return 2 * quat_prod(qconj(quat), quat_dot)
 
     @property
     def model(self) -> Model:
@@ -71,13 +71,7 @@ class VariationalIntegrator:
         self.model.create_data()
         self.nq = self.model.nq
         self.nu = self.model.nu
-
-        q = cs.SX.sym("q", self.nq)
-        dq = cs.SX.sym("dq", self.nq)
-        v = self.v(q, dq)
-        self.lagrangian = cs.Function(
-            "L", [q, dq], [self.model.lagrangian(q, v)], ["q", "dq"], ["L"]
-        )
+        self.lagrangian = self.model.lagrangian
 
     @model.setter
     def model(self, model: Model):
@@ -142,8 +136,8 @@ class VariationalIntegrator:
         dt = cs.SX.sym("dt")
 
         q, dq = self._rule(q0, q1, dt)
-
-        l = self._lagrangian(q, dq)
+        v = self.v(q, dq)
+        l = self._lagrangian(q, v)
 
         variables = [q0, q1, dt]
 
@@ -294,7 +288,6 @@ class DelIntegrator(VariationalIntegrator):
 
             p1 = self.rule(q0, q1, dt)
             # p2 = self.rule(q1, q2, dt) # No right force
-
             residual += f(*p1, u) * dt
 
         # If lagrangian is augmented, we need

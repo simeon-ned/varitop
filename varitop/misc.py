@@ -13,6 +13,8 @@ def q2rm(q: np.ndarray) -> np.ndarray:
     :rtype: np.ndarray
     """
 
+    raise DeprecationWarning("Some error here. Use pinocchio instead.")
+
     if q.ndim == 1:
         q = q[np.newaxis, :]
 
