@@ -1,6 +1,6 @@
 import casadi as cs
 from darli.backend import CasadiBackend
-from darli.modeling.functional import Functional
+from darli.model import Functional
 
 
 class Model:
