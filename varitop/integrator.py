@@ -1,8 +1,7 @@
 """Integrators"""
 
-from varitop.model import Model
 from typing import List
-from .misc import quat_prod, qconj
+from .misc import quat_prod, qconj, euler_rule
 import casadi as cs
 import numpy as np
 
@@ -10,19 +9,88 @@ import numpy as np
 class VariationalIntegrator:
     """Abstract variational integrator class"""
 
-    def __init__(self) -> None:
-        self._model: Model = None
-        self._lagrangian: cs.Function = None
-        self._rule: cs.Function = None
-        self._nq: int = None
-        self._nu: int = None
+    def __init__(
+            self, 
+            nq: int = None, 
+            nu: int = None,
+            free_body: bool = False,
+            lagrangian: cs.Function = None,
+            rule: cs.Function = euler_rule,
+            selector: cs.SX = None
+        ) -> None:
+
+        self.nq = nq
+        self.nu = nu
+        
+        self.create_variables()
         self._constrained: bool = False
         self._forced: bool = False
-        self._free_body: bool = (
-            False  # Free body assumes that state is [x, y, z, qvx, qvy, qvz, qs]
-        )
         self._dynamics_constraint: cs.Function = None
-        self._generalized_force: cs.Function = None
+        self._generalized_force: cs.Function = cs.Function('F_ext', [self.q, self.dq, self.u], [0], ['q', 'dq', 'u'], ['F_ext'])
+
+        self.free_body = free_body
+        self.lagrangian = lagrangian
+        self.rule = rule
+        self.selector = selector
+        
+
+    def create_variables(self):
+        self.q = cs.SX.sym("q", self.nq)
+        self.dq = cs.SX.sym("dq", self.nq)
+        self.u = cs.SX.sym("u", self.nu)
+        self.lmbds = cs.SX.sym("lambda", 0)
+
+    def add_force(self, expr: cs.SX):
+        self._forced = True
+        self._generalized_force = cs.Function(
+            'F_ext',
+            [self.q, self.dq, self.u],
+            [self._generalized_force(self.q, self.dq, self.u) + expr],
+            ['q', 'dq', 'u'],
+            ['F_ext']
+        )
+
+    def add_constraint(self, expr: cs.SX):
+        self._constrained = True
+        if self._dynamics_constraint is None:
+            self._dynamics_constraint = cs.Function(
+                'phi',
+                [self.q],
+                [expr],
+                ['q'],
+                ['phi']
+            )
+        else:
+            self._dynamics_constraint = cs.Function(
+                'phi',
+                [self.q],
+                [cs.vertcat(self._dynamics_constraint(self.q), expr)],
+                ['q'],
+                ['phi']
+            )
+
+        self.lmbds = cs.SX.sym("lambda", self.lmbds.shape[0] + expr.nnz())
+
+    @property
+    def selector(self) -> cs.SX:
+        """Selector matrix"""
+        return self._selector
+    
+    @selector.setter
+    def selector(self, selector: cs.SX):
+        if selector is None:
+            return 
+        
+        if not self.free_body:
+            raise ValueError("Tried to define selector for fixed body.")
+        self._selector = selector
+
+
+        force = selector @ self.u
+        force_r = cs.vcat([force[3:], 0])
+        force_t = force[:3]
+
+        self.add_force(cs.vcat([force_t, 2 * quat_prod(self.q[3:], force_r)]))
 
     @property
     def free_body(self) -> bool:
@@ -58,25 +126,6 @@ class VariationalIntegrator:
         :rtype: casadi.SX
         """
         return 2 * quat_prod(qconj(quat), quat_dot)
-
-    @property
-    def model(self) -> Model:
-        """Model"""
-        if self._model is None:
-            raise RuntimeError("Model not set.")
-        return self._model
-
-    def create_data(self):
-        """Create data for the model"""
-        self.model.create_data()
-        self.nq = self.model.nq
-        self.nu = self.model.nu
-        self.lagrangian = self.model.lagrangian
-
-    @model.setter
-    def model(self, model: Model):
-        self._model = model
-        self.create_data()
 
     @property
     def lagrangian(self) -> cs.Function:
