@@ -24,21 +24,21 @@ Classes
 
 
 
-.. py:class:: VariationalIntegrator
+.. py:class:: VariationalIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
 
    Abstract variational integrator class
+
+   .. py:property:: selector
+      :type: casadi.SX
+
+      Selector matrix
+
 
    .. py:property:: free_body
       :type: bool
 
       Index of quaternion in generalized coordinates
-
-
-   .. py:property:: model
-      :type: varitop.model.Model
-
-      Model
 
 
    .. py:property:: lagrangian
@@ -65,6 +65,15 @@ Classes
       Number of controls
 
 
+   .. py:method:: create_variables()
+
+
+   .. py:method:: add_force(expr: casadi.SX)
+
+
+   .. py:method:: add_constraint(expr: casadi.SX)
+
+
    .. py:method:: v(q: casadi.SX, dq: casadi.SX) -> casadi.SX
 
 
@@ -80,11 +89,6 @@ Classes
       :type quat_dot: casadi.SX
       :return: angular velocity 4x1
       :rtype: casadi.SX
-
-
-   .. py:method:: create_data()
-
-      Create data for the model
 
 
    .. py:method:: _discrete_lagrangian() -> casadi.Function
@@ -147,7 +151,7 @@ Classes
 
 
 
-.. py:class:: DelIntegrator
+.. py:class:: DelIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
 
    Bases: :py:obj:`VariationalIntegrator`
@@ -182,7 +186,7 @@ Classes
 
 
 
-.. py:class:: DelmIntegrator
+.. py:class:: DelmIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
 
    Bases: :py:obj:`VariationalIntegrator`

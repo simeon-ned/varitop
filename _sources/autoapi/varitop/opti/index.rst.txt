@@ -1,0 +1,65 @@
+:py:mod:`varitop.opti`
+======================
+
+.. py:module:: varitop.opti
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   varitop.opti.Varitop
+
+
+
+
+.. py:class:: Varitop(integrator: varitop.integrator.VariationalIntegrator = None, nsteps: int = None, dt: float = None)
+
+
+   .. py:property:: ns
+
+
+   .. py:property:: dt
+
+
+   .. py:method:: create_variables()
+
+
+   .. py:method:: parameter(shape: int)
+
+
+   .. py:method:: set_parameter(parameter: casadi.SX, value)
+
+
+   .. py:method:: subject_to(expr)
+
+
+   .. py:method:: set_cost(cost)
+
+
+   .. py:method:: set_initial(variable: casadi.SX, value: casadi.SX)
+
+
+   .. py:method:: _dynamics_constraint()
+
+
+   .. py:method:: bounded(lb, variable, ub)
+
+
+   .. py:method:: solve()
+
+
+   .. py:method:: value(variable: casadi.SX)
+
+
+   .. py:method:: set_initial_configuration(q0)
+
+
+   .. py:method:: set_terminal_configuration(qf)
+
+
+

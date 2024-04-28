@@ -13,6 +13,7 @@ Submodules
    integrator/index.rst
    misc/index.rst
    model/index.rst
+   opti/index.rst
    problem/index.rst
    variables/index.rst
 
