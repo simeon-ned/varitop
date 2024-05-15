@@ -3,7 +3,7 @@ from casadi import Opti
 import casadi as cs
 
 class Varitop:
-    def __init__(self, integrator: VariationalIntegrator = None, nsteps: int = None, dt: float = None):
+    def __init__(self, integrator: VariationalIntegrator = None, nsteps: int = None, dt: float = None, custom_dynamics: bool = False):
         """
             Optimization class
         """
@@ -18,6 +18,7 @@ class Varitop:
         self.problem = Opti()
         self.ns = nsteps
         self.dt = dt
+        self.custom_dynamics = custom_dynamics
 
         self.create_variables()
 
@@ -58,17 +59,26 @@ class Varitop:
     def set_initial(self, variable: cs.SX, value: cs.SX):
         self.problem.set_initial(variable, value)
 
-    def _dynamics_constraint(self):
-        residual = self.integrator.get_residual()
-        for i in range(1, self.ns):
-            args = [self.q[:, i - 1], self.q[:, i], self.q[:, i + 1], self.dt]
-            if self.integrator._constrained:
-                args.append(self.lmbds[:, i])
-            if self.integrator._forced:
-                args.append(self.u[:, i])
+    def residual(self, step):
+        args = [
+            self.q[:, step - 1], 
+            self.q[:, step], 
+            self.q[:, step + 1], 
+            self.dt
+        ]
 
+        if self.integrator._constrained:
+            args.append(self.lmbds[:, step])
+
+        if self.integrator._forced:
+            args.append(self.u[:, step])
+
+        return self.integrator.get_residual()(*args)
+
+    def _dynamics_constraint(self):
+        for i in range(1, self.ns):
             self.subject_to(
-                residual(*args) == 0
+                self.residual(i) == 0
             )
 
     def bounded(self, lb, variable, ub):
@@ -77,7 +87,9 @@ class Varitop:
         )
 
     def solve(self):
-        self._dynamics_constraint()
+        if not self.custom_dynamics:
+            self._dynamics_constraint()
+
         self.problem.solver('ipopt')
 
         return self.problem.solve()
