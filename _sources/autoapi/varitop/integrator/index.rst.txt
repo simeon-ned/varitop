@@ -1,5 +1,5 @@
-:py:mod:`varitop.integrator`
-============================
+varitop.integrator
+==================
 
 .. py:module:: varitop.integrator
 
@@ -9,11 +9,8 @@
 
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -22,47 +19,58 @@ Classes
    varitop.integrator.DelmIntegrator
 
 
+Functions
+---------
+
+.. autoapisummary::
+
+   varitop.integrator.quat_prod
+   varitop.integrator.qconj
+   varitop.integrator.euler_rule
+
+
+Module Contents
+---------------
+
+.. py:function:: quat_prod(q1: casadi.SX, q2: casadi.SX) -> casadi.SX
+
+   Quaternion product
+
+   :param q1: first quaternion
+   :param q2: second quaternion
+   :type q1: casadi.SX
+   :type q2: casadi.SX
+   :return: q1 * q2
+   :rtype: casadi.SX
+
+
+.. py:function:: qconj(q: casadi.SX) -> casadi.SX
+
+   Quaternion conjugate
+
+   :param q: quaternion to conjugate
+   :type q: casadi.SX
+   :return: q*
+   :rtype: casadi.SX
+
+
+.. py:function:: euler_rule(q1: casadi.SX, q2: casadi.SX, dt: casadi.SX) -> [casadi.SX, casadi.SX]
+
+   Euler midpoint rule for integration
+
+   :param q1: first state
+   :param q2: second state
+   :param dt: time step
+   :type q1: casadi.SX
+   :type q2: casadi.SX
+   :type dt: casadi.SX
+   :return: q, dq
+   :rtype: Tuple[casadi.SX, casadi.SX]
 
 
 .. py:class:: VariationalIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
-
    Abstract variational integrator class
-
-   .. py:property:: selector
-      :type: casadi.SX
-
-      Selector matrix
-
-
-   .. py:property:: free_body
-      :type: bool
-
-      Index of quaternion in generalized coordinates
-
-
-   .. py:property:: lagrangian
-      :type: casadi.Function
-
-      System's continuous lagrangian
-
-
-   .. py:property:: rule
-      :type: casadi.Function
-
-      Midpoint rule
-
-
-   .. py:property:: nq
-      :type: int
-
-      Number of generalized coordinates
-
-
-   .. py:property:: nu
-      :type: int
-
-      Number of controls
 
 
    .. py:method:: create_variables()
@@ -72,6 +80,20 @@ Classes
 
 
    .. py:method:: add_constraint(expr: casadi.SX)
+
+
+   .. py:property:: selector
+      :type: casadi.SX
+
+      Selector matrix
+
+
+
+   .. py:property:: free_body
+      :type: bool
+
+      Index of quaternion in generalized coordinates
+
 
 
    .. py:method:: v(q: casadi.SX, dq: casadi.SX) -> casadi.SX
@@ -91,6 +113,35 @@ Classes
       :rtype: casadi.SX
 
 
+
+   .. py:property:: lagrangian
+      :type: casadi.Function
+
+      System's continuous lagrangian
+
+
+
+   .. py:property:: rule
+      :type: casadi.Function
+
+      Midpoint rule
+
+
+
+   .. py:property:: nq
+      :type: int
+
+      Number of generalized coordinates
+
+
+
+   .. py:property:: nu
+      :type: int
+
+      Number of controls
+
+
+
    .. py:method:: _discrete_lagrangian() -> casadi.Function
 
       Discretization of system's lagrangian
@@ -99,23 +150,30 @@ Classes
       :rtype: casadi.Function
 
 
+
    .. py:method:: get_residual()
       :abstractmethod:
 
+
       Formulate the residual
+
 
 
    .. py:method:: get_rf_residual()
       :abstractmethod:
 
+
       Reformulate the residual
       to casadi.rootfinder problem
+
 
 
    .. py:method:: step()
       :abstractmethod:
 
+
       Perform a step of integration
+
 
 
    .. py:method:: _append_generalized_force(force: casadi.Function)
@@ -126,6 +184,7 @@ Classes
       :type force: casadi.Function
 
 
+
    .. py:method:: add_generalized_forces(forces: List[casadi.Function])
 
       Wrapper for forces lists
@@ -134,12 +193,14 @@ Classes
       :type forces: List[casadi.Function]
 
 
+
    .. py:method:: _append_dynamics_constraint(constr: casadi.Function)
 
       Add phi(q) for constrained dynamics
 
       :param constr: constraint residual
       :type constr: casadi.Function
+
 
 
    .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
@@ -153,19 +214,22 @@ Classes
 
 .. py:class:: DelIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
-
    Bases: :py:obj:`VariationalIntegrator`
 
+
    Discrete Euler-Lagrange integrator
+
 
    .. py:method:: get_residual() -> casadi.Function
 
       Formulate Discrete Euler-Lagrange residual
 
 
+
    .. py:method:: get_rf_residual() -> casadi.Function
 
       Reformulate residual to match rootfinder signature
+
 
 
    .. py:method:: step(q0: numpy.ndarray, q1: numpy.ndarray, dt: float, u: numpy.ndarray = None) -> numpy.ndarray
@@ -188,13 +252,15 @@ Classes
 
 .. py:class:: DelmIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
-
    Bases: :py:obj:`VariationalIntegrator`
+
 
    Discrete Euler-Lagrange in Momentum form
 
+
    .. py:method:: step()
       :abstractmethod:
+
 
       (q0, p0) -> (q1, p1)
 

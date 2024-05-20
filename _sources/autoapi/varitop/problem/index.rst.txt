@@ -1,5 +1,5 @@
-:py:mod:`varitop.problem`
-=========================
+varitop.problem
+===============
 
 .. py:module:: varitop.problem
 
@@ -9,34 +9,81 @@
 
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
+   varitop.problem.VariationalIntegrator
+   varitop.problem.Variable
+   varitop.problem.Momentum
+   varitop.problem.State
+   varitop.problem.Velocity
+   varitop.problem.Control
    varitop.problem.VaritopProblem
 
 
+Module Contents
+---------------
+
+.. py:class:: VariationalIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
+
+   Abstract variational integrator class
 
 
-.. py:class:: VaritopProblem
+   .. py:method:: create_variables()
 
 
-   Variational Optimization Problem
-
-   .. py:property:: integrator
-      :type: varitop.integrator.VariationalIntegrator
-
-      Problem integrator
+   .. py:method:: add_force(expr: casadi.SX)
 
 
-   .. py:property:: nodes
-      :type: int
+   .. py:method:: add_constraint(expr: casadi.SX)
 
-      Number of solution nodes
+
+   .. py:property:: selector
+      :type: casadi.SX
+
+      Selector matrix
+
+
+
+   .. py:property:: free_body
+      :type: bool
+
+      Index of quaternion in generalized coordinates
+
+
+
+   .. py:method:: v(q: casadi.SX, dq: casadi.SX) -> casadi.SX
+
+
+   .. py:method:: q2w(quat: casadi.SX, quat_dot: casadi.SX) -> casadi.SX
+
+      Angular velocity from quaternion and its derivative
+
+      :math:`\omega = 2 L(\bar{q}) \dot{q}`
+
+      :param quat: quaternion
+      :type quat: casadi.SX
+      :param quat_dot: quaternion derivative
+      :type quat_dot: casadi.SX
+      :return: angular velocity 4x1
+      :rtype: casadi.SX
+
+
+
+   .. py:property:: lagrangian
+      :type: casadi.Function
+
+      System's continuous lagrangian
+
+
+
+   .. py:property:: rule
+      :type: casadi.Function
+
+      Midpoint rule
+
 
 
    .. py:property:: nq
@@ -45,11 +92,6 @@ Classes
       Number of generalized coordinates
 
 
-   .. py:property:: nv
-      :type: int
-
-      Number of generalized velocities
-
 
    .. py:property:: nu
       :type: int
@@ -57,22 +99,166 @@ Classes
       Number of controls
 
 
-   .. py:property:: state
-      :type: varitop.variables.Variable
 
-      System state (projected)
+   .. py:method:: _discrete_lagrangian() -> casadi.Function
 
+      Discretization of system's lagrangian
 
-   .. py:property:: velocity
-      :type: varitop.variables.Variable
-
-      System velocty (projected)
+      :return: Ld(q0, q1, h)
+      :rtype: casadi.Function
 
 
-   .. py:property:: control
-      :type: varitop.variables.Variable
 
-      System control (projected)
+   .. py:method:: get_residual()
+      :abstractmethod:
+
+
+      Formulate the residual
+
+
+
+   .. py:method:: get_rf_residual()
+      :abstractmethod:
+
+
+      Reformulate the residual
+      to casadi.rootfinder problem
+
+
+
+   .. py:method:: step()
+      :abstractmethod:
+
+
+      Perform a step of integration
+
+
+
+   .. py:method:: _append_generalized_force(force: casadi.Function)
+
+      Compose a force, acting on a body
+
+      :param force: force to add (required to be in the state-space)
+      :type force: casadi.Function
+
+
+
+   .. py:method:: add_generalized_forces(forces: List[casadi.Function])
+
+      Wrapper for forces lists
+
+      :param forces: A list of forces
+      :type forces: List[casadi.Function]
+
+
+
+   .. py:method:: _append_dynamics_constraint(constr: casadi.Function)
+
+      Add phi(q) for constrained dynamics
+
+      :param constr: constraint residual
+      :type constr: casadi.Function
+
+
+
+   .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
+
+      Wrapper for constraints lists
+
+      :param constraints: A list of constraints
+      :type constraints: List[casadi.Function]
+
+
+
+.. py:class:: Variable(name: str, dim: int, active: list[int])
+
+   Varaibles are here
+
+
+   .. py:property:: shape
+
+
+   .. py:property:: vars
+
+
+   .. py:property:: var
+      Variable
+
+
+
+   .. py:method:: __getitem__(key)
+
+
+.. py:class:: Momentum(name: str, dim: int, active: list[int])
+
+   Bases: :py:obj:`Variable`
+
+
+   Momentum is here
+
+
+.. py:class:: State(name: str, dim: int, active: list[int])
+
+   Bases: :py:obj:`Variable`
+
+
+   State is here
+
+
+.. py:class:: Velocity(name: str, dim: int, active: list[int])
+
+   Bases: :py:obj:`Variable`
+
+
+   Velocity is here
+
+
+.. py:class:: Control(name: str, dim: int, active: list[int])
+
+   Bases: :py:obj:`Variable`
+
+
+   Control is here
+
+
+.. py:class:: VaritopProblem
+
+   Variational Optimization Problem
+
+
+   .. py:property:: integrator
+      :type: varitop.integrator.VariationalIntegrator
+
+      Problem integrator
+
+
+
+   .. py:property:: nodes
+      :type: int
+
+      Number of solution nodes
+
+
+
+   .. py:property:: nq
+      :type: int
+
+      Number of generalized coordinates
+
+
+
+   .. py:property:: nv
+      :type: int
+
+      Number of generalized velocities
+
+
+
+   .. py:property:: nu
+      :type: int
+
+      Number of controls
+
 
 
    .. py:method:: create_variable(variable: type[varitop.variables.Variable], name: str, dim: int, active: list[int] = None) -> varitop.variables.Variable
@@ -89,9 +275,11 @@ Classes
       :type active: list[int]
 
 
+
    .. py:method:: create_state(name: str, dim: int, active: list[int] = None) -> varitop.variables.Variable
 
       Create a state variable
+
 
 
    .. py:method:: create_velocity(name: str, active: list[int] = None) -> varitop.variables.Variable
@@ -99,14 +287,37 @@ Classes
       Create a velocity variable
 
 
+
    .. py:method:: create_momentum(name: str, active: list[int] = None) -> varitop.variables.Variable
 
       Create a momentum variable
 
 
+
    .. py:method:: create_control(name: str, active: list[int] = None) -> varitop.variables.Variable
 
       Create a control variable
+
+
+
+   .. py:property:: state
+      :type: varitop.variables.Variable
+
+      System state (projected)
+
+
+
+   .. py:property:: velocity
+      :type: varitop.variables.Variable
+
+      System velocty (projected)
+
+
+
+   .. py:property:: control
+      :type: varitop.variables.Variable
+
+      System control (projected)
 
 
 

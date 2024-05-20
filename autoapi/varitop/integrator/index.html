@@ -226,13 +226,13 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../opti/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.opti</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../problem/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../variables/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.variables</span></code></a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">varitop</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">varitop.integrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../misc/index.html">varitop.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../model/index.html">varitop.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opti/index.html">varitop.opti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../problem/index.html">varitop.problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variables/index.html">varitop.variables</a></li>
 </ul>
 </li>
 </ul>
@@ -278,12 +278,10 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="module-varitop.integrator">
-<span id="varitop-integrator"></span><h1><a class="reference internal" href="#module-varitop.integrator" title="varitop.integrator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a><a class="headerlink" href="#module-varitop.integrator" title="Permalink to this heading">¶</a></h1>
+<span id="varitop-integrator"></span><h1>varitop.integrator<a class="headerlink" href="#module-varitop.integrator" title="Permalink to this heading">¶</a></h1>
 <p>Integrators</p>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -299,46 +297,89 @@
 </tbody>
 </table>
 </div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.integrator.quat_prod" title="varitop.integrator.quat_prod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quat_prod</span></code></a>(→ casadi.SX)</p></td>
+<td><p>Quaternion product</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.integrator.qconj" title="varitop.integrator.qconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qconj</span></code></a>(→ casadi.SX)</p></td>
+<td><p>Quaternion conjugate</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.integrator.euler_rule" title="varitop.integrator.euler_rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rule</span></code></a>(→ [casadi.SX, casadi.SX])</p></td>
+<td><p>Euler midpoint rule for integration</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="varitop.integrator.quat_prod">
+<span class="sig-prename descclassname"><span class="pre">varitop.integrator.</span></span><span class="sig-name descname"><span class="pre">quat_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.integrator.quat_prod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quaternion product</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>casadi.SX</em>) – first quaternion</p></li>
+<li><p><strong>q2</strong> (<em>casadi.SX</em>) – second quaternion</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q1 * q2</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="varitop.integrator.qconj">
+<span class="sig-prename descclassname"><span class="pre">varitop.integrator.</span></span><span class="sig-name descname"><span class="pre">qconj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.integrator.qconj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quaternion conjugate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>casadi.SX</em>) – quaternion to conjugate</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q*</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="varitop.integrator.euler_rule">
+<span class="sig-prename descclassname"><span class="pre">varitop.integrator.</span></span><span class="sig-name descname"><span class="pre">euler_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="pre">casadi.SX</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">casadi.SX</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#varitop.integrator.euler_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Euler midpoint rule for integration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>casadi.SX</em>) – first state</p></li>
+<li><p><strong>q2</strong> (<em>casadi.SX</em>) – second state</p></li>
+<li><p><strong>dt</strong> (<em>casadi.SX</em>) – time step</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>q, dq</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[casadi.SX, casadi.SX]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.integrator.</span></span><span class="sig-name descname"><span class="pre">VariationalIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">free_body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lagrangian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">euler_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract variational integrator class</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.selector">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.SX</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.selector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Selector matrix</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.free_body">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free_body</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.free_body" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index of quaternion in generalized coordinates</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.lagrangian">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.lagrangian" title="Permalink to this definition">¶</a></dt>
-<dd><p>System’s continuous lagrangian</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.rule">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Midpoint rule</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nq">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of generalized coordinates</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nu">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of controls</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.create_variables">
 <span class="sig-name descname"><span class="pre">create_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.create_variables" title="Permalink to this definition">¶</a></dt>
@@ -353,6 +394,18 @@
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.add_constraint">
 <span class="sig-name descname"><span class="pre">add_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.add_constraint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.selector">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.SX</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selector matrix</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.free_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free_body</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.free_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index of quaternion in generalized coordinates</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.v">
@@ -378,6 +431,30 @@
 <dd class="field-odd"><p>casadi.SX</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.lagrangian">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.lagrangian" title="Permalink to this definition">¶</a></dt>
+<dd><p>System’s continuous lagrangian</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.rule">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Midpoint rule</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of generalized coordinates</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.integrator.VariationalIntegrator.nu">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.integrator.VariationalIntegrator.nu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of controls</p>
 </dd></dl>
 
 <dl class="py method">
@@ -515,7 +592,6 @@ to casadi.rootfinder problem</p>
 
 </section>
 </section>
-</section>
 
         </article>
       </div>
@@ -527,7 +603,7 @@ to casadi.rootfinder problem</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></div>
+                <div class="title">varitop.misc</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -538,7 +614,7 @@ to casadi.rootfinder problem</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></div>
+                <div class="title">varitop</div>
                 
               </div>
             </a>
@@ -572,21 +648,25 @@ to casadi.rootfinder problem</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a><ul>
+<li><a class="reference internal" href="#">varitop.integrator</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#varitop.integrator.quat_prod"><code class="docutils literal notranslate"><span class="pre">quat_prod()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.qconj"><code class="docutils literal notranslate"><span class="pre">qconj()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.euler_rule"><code class="docutils literal notranslate"><span class="pre">euler_rule()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.create_variables"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.create_variables()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_force"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_force()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_constraint"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_constraint()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.selector"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.selector</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.free_body"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.free_body</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.v"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.v()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.q2w"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.q2w()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.lagrangian"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.lagrangian</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.rule"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.rule</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.nq"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nq</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.nu"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nu</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.create_variables"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.create_variables()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_force"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_force()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.add_constraint"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.v"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.v()</span></code></a></li>
-<li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.q2w"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.q2w()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator._discrete_lagrangian"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._discrete_lagrangian()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.get_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_residual()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.integrator.VariationalIntegrator.get_rf_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_rf_residual()</span></code></a></li>
@@ -605,8 +685,6 @@ to casadi.rootfinder problem</p>
 </li>
 <li><a class="reference internal" href="#varitop.integrator.DelmIntegrator"><code class="docutils literal notranslate"><span class="pre">DelmIntegrator</span></code></a><ul>
 <li><a class="reference internal" href="#varitop.integrator.DelmIntegrator.step"><code class="docutils literal notranslate"><span class="pre">DelmIntegrator.step()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

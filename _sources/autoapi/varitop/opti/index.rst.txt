@@ -1,24 +1,166 @@
-:py:mod:`varitop.opti`
-======================
+varitop.opti
+============
 
 .. py:module:: varitop.opti
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   varitop.opti.VariationalIntegrator
+   varitop.opti.Varitop
 
 
 Module Contents
 ---------------
 
-Classes
-~~~~~~~
+.. py:class:: VariationalIntegrator(nq: int = None, nu: int = None, free_body: bool = False, lagrangian: casadi.Function = None, rule: casadi.Function = euler_rule, selector: casadi.SX = None)
 
-.. autoapisummary::
+   Abstract variational integrator class
 
-   varitop.opti.Varitop
 
+   .. py:method:: create_variables()
+
+
+   .. py:method:: add_force(expr: casadi.SX)
+
+
+   .. py:method:: add_constraint(expr: casadi.SX)
+
+
+   .. py:property:: selector
+      :type: casadi.SX
+
+      Selector matrix
+
+
+
+   .. py:property:: free_body
+      :type: bool
+
+      Index of quaternion in generalized coordinates
+
+
+
+   .. py:method:: v(q: casadi.SX, dq: casadi.SX) -> casadi.SX
+
+
+   .. py:method:: q2w(quat: casadi.SX, quat_dot: casadi.SX) -> casadi.SX
+
+      Angular velocity from quaternion and its derivative
+
+      :math:`\omega = 2 L(\bar{q}) \dot{q}`
+
+      :param quat: quaternion
+      :type quat: casadi.SX
+      :param quat_dot: quaternion derivative
+      :type quat_dot: casadi.SX
+      :return: angular velocity 4x1
+      :rtype: casadi.SX
+
+
+
+   .. py:property:: lagrangian
+      :type: casadi.Function
+
+      System's continuous lagrangian
+
+
+
+   .. py:property:: rule
+      :type: casadi.Function
+
+      Midpoint rule
+
+
+
+   .. py:property:: nq
+      :type: int
+
+      Number of generalized coordinates
+
+
+
+   .. py:property:: nu
+      :type: int
+
+      Number of controls
+
+
+
+   .. py:method:: _discrete_lagrangian() -> casadi.Function
+
+      Discretization of system's lagrangian
+
+      :return: Ld(q0, q1, h)
+      :rtype: casadi.Function
+
+
+
+   .. py:method:: get_residual()
+      :abstractmethod:
+
+
+      Formulate the residual
+
+
+
+   .. py:method:: get_rf_residual()
+      :abstractmethod:
+
+
+      Reformulate the residual
+      to casadi.rootfinder problem
+
+
+
+   .. py:method:: step()
+      :abstractmethod:
+
+
+      Perform a step of integration
+
+
+
+   .. py:method:: _append_generalized_force(force: casadi.Function)
+
+      Compose a force, acting on a body
+
+      :param force: force to add (required to be in the state-space)
+      :type force: casadi.Function
+
+
+
+   .. py:method:: add_generalized_forces(forces: List[casadi.Function])
+
+      Wrapper for forces lists
+
+      :param forces: A list of forces
+      :type forces: List[casadi.Function]
+
+
+
+   .. py:method:: _append_dynamics_constraint(constr: casadi.Function)
+
+      Add phi(q) for constrained dynamics
+
+      :param constr: constraint residual
+      :type constr: casadi.Function
+
+
+
+   .. py:method:: add_dynamics_constraints(constraints: List[casadi.Function])
+
+      Wrapper for constraints lists
+
+      :param constraints: A list of constraints
+      :type constraints: List[casadi.Function]
 
 
 
 .. py:class:: Varitop(integrator: varitop.integrator.VariationalIntegrator = None, nsteps: int = None, dt: float = None, custom_dynamics: bool = False)
-
 
    .. py:property:: ns
 
@@ -63,6 +205,5 @@ Classes
 
 
    .. py:method:: set_terminal_configuration(qf)
-
 
 

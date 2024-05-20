@@ -1,5 +1,5 @@
-:py:mod:`varitop.misc`
-======================
+varitop.misc
+============
 
 .. py:module:: varitop.misc
 
@@ -9,12 +9,8 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -25,6 +21,8 @@ Functions
    varitop.misc.euler_rule
 
 
+Module Contents
+---------------
 
 .. py:function:: q2rm(q: numpy.ndarray) -> numpy.ndarray
 

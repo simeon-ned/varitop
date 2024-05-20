@@ -1,20 +1,20 @@
-:py:mod:`varitop`
-=================
+varitop
+=======
 
 .. py:module:: varitop
 
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   integrator/index.rst
-   misc/index.rst
-   model/index.rst
-   opti/index.rst
-   problem/index.rst
-   variables/index.rst
+   /autoapi/varitop/integrator/index
+   /autoapi/varitop/misc/index
+   /autoapi/varitop/model/index
+   /autoapi/varitop/opti/index
+   /autoapi/varitop/problem/index
+   /autoapi/varitop/variables/index
 
 

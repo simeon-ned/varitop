@@ -1,5 +1,5 @@
-:py:mod:`varitop.variables`
-===========================
+varitop.variables
+=================
 
 .. py:module:: varitop.variables
 
@@ -9,11 +9,8 @@
 
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -24,12 +21,13 @@ Classes
    varitop.variables.Control
 
 
-
+Module Contents
+---------------
 
 .. py:class:: Variable(name: str, dim: int, active: list[int])
 
-
    Varaibles are here
+
 
    .. py:property:: shape
 
@@ -38,42 +36,41 @@ Classes
 
 
    .. py:property:: var
-
       Variable
+
 
 
    .. py:method:: __getitem__(key)
 
 
-
 .. py:class:: Momentum(name: str, dim: int, active: list[int])
 
-
    Bases: :py:obj:`Variable`
+
 
    Momentum is here
 
 
 .. py:class:: State(name: str, dim: int, active: list[int])
 
-
    Bases: :py:obj:`Variable`
+
 
    State is here
 
 
 .. py:class:: Velocity(name: str, dim: int, active: list[int])
 
-
    Bases: :py:obj:`Variable`
+
 
    Velocity is here
 
 
 .. py:class:: Control(name: str, dim: int, active: list[int])
 
-
    Bases: :py:obj:`Variable`
+
 
    Control is here
 

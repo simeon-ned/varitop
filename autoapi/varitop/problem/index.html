@@ -226,13 +226,13 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../../src/api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../integrator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.integrator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.misc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.model</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../opti/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.opti</span></code></a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../variables/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.variables</span></code></a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">varitop</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of varitop</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../integrator/index.html">varitop.integrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../misc/index.html">varitop.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../model/index.html">varitop.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opti/index.html">varitop.opti</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">varitop.problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variables/index.html">varitop.variables</a></li>
 </ul>
 </li>
 </ul>
@@ -278,21 +278,256 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="module-varitop.problem">
-<span id="varitop-problem"></span><h1><a class="reference internal" href="#module-varitop.problem" title="varitop.problem"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a><a class="headerlink" href="#module-varitop.problem" title="Permalink to this heading">¶</a></h1>
+<span id="varitop-problem"></span><h1>varitop.problem<a class="headerlink" href="#module-varitop.problem" title="Permalink to this heading">¶</a></h1>
 <p>Problem module</p>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.problem.VariationalIntegrator" title="varitop.problem.VariationalIntegrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariationalIntegrator</span></code></a></p></td>
+<td><p>Abstract variational integrator class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a></p></td>
+<td><p>Varaibles are here</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.problem.Momentum" title="varitop.problem.Momentum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Momentum</span></code></a></p></td>
+<td><p>Momentum is here</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.problem.State" title="varitop.problem.State"><code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></a></p></td>
+<td><p>State is here</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#varitop.problem.Velocity" title="varitop.problem.Velocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Velocity</span></code></a></p></td>
+<td><p>Velocity is here</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#varitop.problem.Control" title="varitop.problem.Control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Control</span></code></a></p></td>
+<td><p>Control is here</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#varitop.problem.VaritopProblem" title="varitop.problem.VaritopProblem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VaritopProblem</span></code></a></p></td>
 <td><p>Variational Optimization Problem</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">VariationalIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">free_body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lagrangian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">euler_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract variational integrator class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.create_variables">
+<span class="sig-name descname"><span class="pre">create_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.create_variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.add_force">
+<span class="sig-name descname"><span class="pre">add_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.add_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.add_constraint">
+<span class="sig-name descname"><span class="pre">add_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.add_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.selector">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">selector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.SX</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selector matrix</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.free_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">free_body</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.free_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index of quaternion in generalized coordinates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.v">
+<span class="sig-name descname"><span class="pre">v</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.q2w">
+<span class="sig-name descname"><span class="pre">q2w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quat_dot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.SX</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.SX</span></span></span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.q2w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Angular velocity from quaternion and its derivative</p>
+<p><span class="math notranslate nohighlight">\(\omega = 2 L(\bar{q}) \dot{q}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quat</strong> (<em>casadi.SX</em>) – quaternion</p></li>
+<li><p><strong>quat_dot</strong> (<em>casadi.SX</em>) – quaternion derivative</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>angular velocity 4x1</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>casadi.SX</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.lagrangian">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lagrangian</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.lagrangian" title="Permalink to this definition">¶</a></dt>
+<dd><p>System’s continuous lagrangian</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.rule">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rule</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">casadi.Function</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Midpoint rule</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.nq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.nq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of generalized coordinates</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.nu">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#varitop.problem.VariationalIntegrator.nu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of controls</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator._discrete_lagrangian">
+<span class="sig-name descname"><span class="pre">_discrete_lagrangian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">casadi.Function</span></span></span><a class="headerlink" href="#varitop.problem.VariationalIntegrator._discrete_lagrangian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretization of system’s lagrangian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Ld(q0, q1, h)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>casadi.Function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.get_residual">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.get_residual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formulate the residual</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.get_rf_residual">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_rf_residual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.get_rf_residual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reformulate the residual
+to casadi.rootfinder problem</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.step">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a step of integration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator._append_generalized_force">
+<span class="sig-name descname"><span class="pre">_append_generalized_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator._append_generalized_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compose a force, acting on a body</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>force</strong> (<em>casadi.Function</em>) – force to add (required to be in the state-space)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.add_generalized_forces">
+<span class="sig-name descname"><span class="pre">add_generalized_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.add_generalized_forces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for forces lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>forces</strong> (<em>List</em><em>[</em><em>casadi.Function</em><em>]</em>) – A list of forces</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator._append_dynamics_constraint">
+<span class="sig-name descname"><span class="pre">_append_dynamics_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">casadi.Function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator._append_dynamics_constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add phi(q) for constrained dynamics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constr</strong> (<em>casadi.Function</em>) – constraint residual</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.VariationalIntegrator.add_dynamics_constraints">
+<span class="sig-name descname"><span class="pre">add_dynamics_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">casadi.Function</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.VariationalIntegrator.add_dynamics_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for constraints lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constraints</strong> (<em>List</em><em>[</em><em>casadi.Function</em><em>]</em>) – A list of constraints</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.Variable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Varaibles are here</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.Variable.shape">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#varitop.problem.Variable.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.Variable.vars">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vars</span></span><a class="headerlink" href="#varitop.problem.Variable.vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.Variable.var">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">var</span></span><a class="headerlink" href="#varitop.problem.Variable.var" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="varitop.problem.Variable.Variable">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Variable</span></span><a class="headerlink" href="#varitop.problem.Variable.Variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="varitop.problem.Variable.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.Variable.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.Momentum">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">Momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.Momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>Momentum is here</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.State">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>State is here</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.Velocity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">Velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.Velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>Velocity is here</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="varitop.problem.Control">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">Control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#varitop.problem.Control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>Control is here</p>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">varitop.problem.</span></span><span class="sig-name descname"><span class="pre">VaritopProblem</span></span><a class="headerlink" href="#varitop.problem.VaritopProblem" title="Permalink to this definition">¶</a></dt>
@@ -327,24 +562,6 @@
 <dd><p>Number of controls</p>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.state">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.state" title="Permalink to this definition">¶</a></dt>
-<dd><p>System state (projected)</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.velocity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">velocity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.velocity" title="Permalink to this definition">¶</a></dt>
-<dd><p>System velocty (projected)</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.control">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.control" title="Permalink to this definition">¶</a></dt>
-<dd><p>System control (projected)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="varitop.problem.VaritopProblem.create_variable">
 <span class="sig-name descname"><span class="pre">create_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></span></span><a class="headerlink" href="#varitop.problem.VaritopProblem.create_variable" title="Permalink to this definition">¶</a></dt>
@@ -352,7 +569,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variable</strong> (<em>type</em><em>[</em><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><em>Variable</em></a><em>]</em>) – which variable to create</p></li>
+<li><p><strong>variable</strong> (<em>type</em><em>[</em><a class="reference internal" href="#varitop.problem.Variable" title="varitop.problem.Variable"><em>Variable</em></a><em>]</em>) – which variable to create</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – varaible name</p></li>
 <li><p><strong>dim</strong> (<em>int</em>) – variable dimensionality</p></li>
 <li><p><strong>active</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – at which nodes variable is active</p></li>
@@ -385,9 +602,26 @@
 <dd><p>Create a control variable</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.state" title="Permalink to this definition">¶</a></dt>
+<dd><p>System state (projected)</p>
 </dd></dl>
 
-</section>
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.velocity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">velocity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>System velocty (projected)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="varitop.problem.VaritopProblem.control">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">control</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../variables/index.html#varitop.variables.Variable" title="varitop.variables.Variable"><span class="pre">varitop.variables.Variable</span></a></em><a class="headerlink" href="#varitop.problem.VaritopProblem.control" title="Permalink to this definition">¶</a></dt>
+<dd><p>System control (projected)</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -401,7 +635,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.variables</span></code></div>
+                <div class="title">varitop.variables</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -412,7 +646,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.opti</span></code></div>
+                <div class="title">varitop.opti</div>
                 
               </div>
             </a>
@@ -446,25 +680,57 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">varitop.problem</span></code></a><ul>
+<li><a class="reference internal" href="#">varitop.problem</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.create_variables"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.create_variables()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.add_force"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_force()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.add_constraint"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.selector"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.selector</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.free_body"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.free_body</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.v"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.v()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.q2w"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.q2w()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.lagrangian"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.lagrangian</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.rule"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.rule</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.nq"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nq</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.nu"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.nu</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator._discrete_lagrangian"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._discrete_lagrangian()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.get_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_residual()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.get_rf_residual"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.get_rf_residual()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.step"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.step()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator._append_generalized_force"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._append_generalized_force()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.add_generalized_forces"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_generalized_forces()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator._append_dynamics_constraint"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator._append_dynamics_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VariationalIntegrator.add_dynamics_constraints"><code class="docutils literal notranslate"><span class="pre">VariationalIntegrator.add_dynamics_constraints()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#varitop.problem.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
+<li><a class="reference internal" href="#varitop.problem.Variable.shape"><code class="docutils literal notranslate"><span class="pre">Variable.shape</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Variable.vars"><code class="docutils literal notranslate"><span class="pre">Variable.vars</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Variable.var"><code class="docutils literal notranslate"><span class="pre">Variable.var</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Variable.Variable"><code class="docutils literal notranslate"><span class="pre">Variable.Variable</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Variable.__getitem__"><code class="docutils literal notranslate"><span class="pre">Variable.__getitem__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#varitop.problem.Momentum"><code class="docutils literal notranslate"><span class="pre">Momentum</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Velocity"><code class="docutils literal notranslate"><span class="pre">Velocity</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.Control"><code class="docutils literal notranslate"><span class="pre">Control</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem"><code class="docutils literal notranslate"><span class="pre">VaritopProblem</span></code></a><ul>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.integrator"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.integrator</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nodes"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nodes</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nq"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nq</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nv"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nv</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.nu"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.nu</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.state"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.state</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.velocity"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.velocity</span></code></a></li>
-<li><a class="reference internal" href="#varitop.problem.VaritopProblem.control"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.control</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_variable"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_variable()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_state"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_state()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_velocity"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_velocity()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_momentum"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_momentum()</span></code></a></li>
 <li><a class="reference internal" href="#varitop.problem.VaritopProblem.create_control"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.create_control()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#varitop.problem.VaritopProblem.state"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.state</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VaritopProblem.velocity"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.velocity</span></code></a></li>
+<li><a class="reference internal" href="#varitop.problem.VaritopProblem.control"><code class="docutils literal notranslate"><span class="pre">VaritopProblem.control</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -484,5 +750,6 @@
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
