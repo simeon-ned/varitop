@@ -335,9 +335,10 @@ class DelIntegrator(VariationalIntegrator):
             variables.append(u)
             titles.append("u")
 
-            p1 = self.rule(q0, q1, dt)
-            # p2 = self.rule(q1, q2, dt) # No right force
-            residual += f(*p1, u) * dt
+            fq1, fdq1 = self.rule(q1, q2, dt)
+            residual += f(fq1, fdq1, u) / 2
+            fq2, fdq2 = self.rule(q0, q1, dt) # right force
+            residual += f(fq2, fdq2, u) / 2
 
         # If lagrangian is augmented, we need
         # to add the constraints
