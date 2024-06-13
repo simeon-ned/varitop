@@ -26,7 +26,7 @@ import meshcat
 # VISUALISATION
 pinmodel, gpinmodel, cpinmodel = pin.buildModelsFromUrdf(
     URDF_PATH,
-    package_dirs="/home/m8dotpie/.cache/robot_descriptions",
+    package_dirs="/home/m8/.cache/robot_descriptions",
     geometry_types=[pin.GeometryType.VISUAL, pin.GeometryType.COLLISION],
     root_joint=pin.JointModelFreeFlyer(),
 )
