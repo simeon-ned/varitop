@@ -7,9 +7,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/simeon-ned/varitop",
     packages=["varitop"],
-    install_requires=[
-        "darli",
-    ],
+    install_requires=[],
     python_requires=">=3.9",
     extras_require={
         "dev": [
